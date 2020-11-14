@@ -2,7 +2,9 @@
 
 ## Backend | Spring Boot
 
-Welcome to master branch
+Welcome to develop branch
+
+Here is the DEFAULT branch till we are finally done.
 
 Please note: The commit messages should follow a consistent pattern:  
 Remember,
