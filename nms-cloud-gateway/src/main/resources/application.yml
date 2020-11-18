@@ -1,0 +1,35 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: AUTHENTICATION-SERVICE
+          uri: lb://AUTHENTICATION-SERVICE
+          predicates:
+            - Path=/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: AUTHENTICATION-SERVICE
+                fallbackuri: forward:/userServiceFallBack
+
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
