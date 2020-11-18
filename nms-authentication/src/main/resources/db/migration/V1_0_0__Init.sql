@@ -7440,3 +7440,70 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+    drop table if exists hibernate_sequence;
+
+    drop table if exists nms_roles;
+
+    drop table if exists nms_users;
+
+    drop table if exists privilege;
+
+    drop table if exists roles_privileges;
+
+    create table hibernate_sequence (
+       next_val bigint
+    ) engine=InnoDB;
+
+    insert into hibernate_sequence values ( 1 );
+
+    insert into hibernate_sequence values ( 1 );
+
+    create table nms_roles (
+       id bigint not null,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB;
+
+    create table nms_users (
+       user_id varchar(255) not null,
+        active bit not null,
+        email varchar(120) not null,
+        enabled bit not null,
+        encrypted_password varchar(255),
+        token varchar(255),
+        token_expired bit not null,
+        role_id bigint,
+        primary key (user_id)
+    ) engine=InnoDB;
+
+    create table privilege (
+       id bigint not null,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB;
+
+    create table roles_privileges (
+       role_id bigint not null,
+        privilege_id bigint not null
+    ) engine=InnoDB;
+
+    alter table nms_users
+       add constraint UK_sx1noxve18y1n65eep4frh76n unique (email);
+
+    alter table nms_users
+       add constraint FKls1k4lfb13k3ia6b80r947cfj
+       foreign key (role_id)
+       references nms_roles (id);
+
+    alter table roles_privileges
+       add constraint FK5yjwxw2gvfyu76j3rgqwo685u
+       foreign key (privilege_id)
+       references privilege (id);
+
+    alter table roles_privileges
+       add constraint FKrukbrp5992gup2f1xivyh3251
+       foreign key (role_id)
+       references nms_roles (id)
