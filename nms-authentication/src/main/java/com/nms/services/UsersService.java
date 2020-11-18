@@ -73,9 +73,8 @@ public class UsersService implements UserDetailsService {
         Long expTime = Long.parseLong(environment.getProperty("email.verification.token.expiration_time"));
         userEntity.setToken(Utils.generateToken(userEntity.getUserId(), expTime));
         userEntity.setActive(false);
-        Users returnValue = usersRepository.save(userEntity);
-        //new AmazonSES().verifyEmail(returnValue);
-        return returnValue;
+        return usersRepository.save(userEntity);
+
     }
 
     private boolean emailExist(String email) {

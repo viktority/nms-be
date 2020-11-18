@@ -8,17 +8,19 @@ import com.nms.repositories.PrivilegeRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
+@Configuration
+@ConditionalOnProperty(value = "com.nms.database.up", havingValue = "false", matchIfMissing = true)
 public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     boolean alreadySetup = false;
@@ -92,7 +94,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         client.setEnabled(true);
         client.setActive(true);
         usersRepository.save(client);
-
         alreadySetup = true;
     }
 
