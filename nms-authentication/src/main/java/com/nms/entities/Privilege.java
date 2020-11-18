@@ -1,0 +1,58 @@
+package com.nms.entities;
+
+
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+
+@Entity
+public class Privilege implements Serializable {
+
+	public Privilege(String name2) {
+		// TODO Auto-generated constructor stub
+		this.name = name2;
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	private String name;
+
+	@ManyToMany(mappedBy = "privileges")
+	private Collection<Role> roles;
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Privilege() {
+	}
+}
