@@ -7,7 +7,7 @@
 //
 //	@Override
 //	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		return application.sources(NMSAuthentication.class);
+//		return application.sources(Users.class);
 //	}
 //
 //}

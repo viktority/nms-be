@@ -20,7 +20,6 @@
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
     </properties>
 
-
     <dependencies>
 
         <dependency>
@@ -45,23 +44,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.20</version>
-            <type>jar</type>
-        </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -79,14 +61,21 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
         </plugins>
     </build>
     <modules>
+        <module>nms-rest-server</module>
+        <module>nms-users</module>
+        <module>nms-number-type-management</module>
         <module>nms-service-registry</module>
         <module>nms-cloud-config-server</module>
         <module>nms-hystrix-dashboard</module>
-        <module>nms-authentication</module>
         <module>nms-cloud-gateway</module>
+        <module>nms-authentication</module>
+        <module>nms-starter</module>
     </modules>
 </project>

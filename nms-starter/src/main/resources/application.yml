@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: AUTHENTICATION-SERVICE
+    name: NUMBER-MANAGEMENT-SERVICE
   zipkin:
     base-url: http://127.0.0.1:9411/
 
@@ -79,5 +79,3 @@ springfox:
     open-api:
       v2:
         path: /api-docs
-
-
