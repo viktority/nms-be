@@ -1,7 +1,7 @@
 package com.nms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nms.dtos.LoginDto;
+import com.nms.rest.server.models.LoginDto;
 import com.nms.entities.Users;
 import com.nms.services.UsersService;
 import com.nms.utils.Utils;
