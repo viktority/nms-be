@@ -1,8 +1,8 @@
 package com.nms.controllers;
 
-import com.nms.rest.server.models.UserDto;
+import com.nms.entities.User;
 import com.nms.rest.server.models.LoginDto;
-import com.nms.entities.Users;
+import com.nms.rest.server.models.UserDto;
 import com.nms.services.UsersService;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
@@ -39,11 +39,11 @@ public class UsersController {
             MediaType.APPLICATION_JSON_VALUE})
 
     @ApiOperation(value = "get all activity", notes = "")
-    public ResponseEntity<Users> createUser(@RequestBody UserDto userDetails) {
+    public ResponseEntity<User> createUser(@RequestBody UserDto userDetails) {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        Users createdUser = usersService.createUser(userDetails);
+        User createdUser = usersService.createUser(userDetails);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
@@ -52,9 +52,9 @@ public class UsersController {
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(value = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    public ResponseEntity<Users> getUser(@PathVariable("userId") String userId) {
+    public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
 
-        Users userDto = usersService.getUserByUserId(userId);
+        User userDto = usersService.getUserByUserId(userId);
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
@@ -63,9 +63,9 @@ public class UsersController {
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
-    public ResponseEntity<List<Users>> getAllUser() {
+    public ResponseEntity<List<User>> getAllUser() {
 
-        List<Users> userDto = usersService.getUsers();
+        List<User> userDto = usersService.getUsers();
 
         return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }

@@ -1,8 +1,8 @@
 package com.nms.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nms.entities.User;
 import com.nms.rest.server.models.LoginDto;
-import com.nms.entities.Users;
 import com.nms.services.UsersService;
 import com.nms.utils.Utils;
 import io.jsonwebtoken.Jwts;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -54,8 +53,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-		String userName = ((User) auth.getPrincipal()).getUsername();
-		Users userDetails = usersService.getUserDetailsByEmail(userName);
+		String userName = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+		User userDetails = usersService.getUserDetailsByEmail(userName);
 		// roles.put("albums", userDetails.getAlbums());
 
 		String token = environment.getProperty("authorization.token.header.prefix") +" "+ getToken(userDetails);
@@ -63,7 +62,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		res.addHeader("userId", userDetails.getUserId());
 	}
 
-	private String getToken(Users userDetails) {
+	private String getToken(User userDetails) {
 		return Jwts.builder().setSubject(userDetails.getUserId())
 				.setExpiration(new Date(
 						System.currentTimeMillis() + Long.parseLong(environment.getProperty("token.expiration_time"))))

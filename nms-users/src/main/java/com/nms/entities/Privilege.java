@@ -22,12 +22,15 @@ public class Privilege implements Serializable {
 
 	private String name;
 
+	@OneToOne
+	private User createdBy;
+
+	@OneToOne
+	private User updatedBy;
+
 	@ManyToMany(mappedBy = "privileges")
 	private Collection<Role> roles;
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
 
 	public Long getId() {
 		return id;
@@ -54,5 +57,21 @@ public class Privilege implements Serializable {
 	}
 
 	public Privilege() {
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(User updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 }

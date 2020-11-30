@@ -4,27 +4,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * RoleDto
+ * BillingPlansDto
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T10:23:00.257Z[GMT]")
 
 
-public class RoleDto   {
+public class BillingPlansDto   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("privilegeIds")
-  @Valid
-  private List<Integer> privilegeIds = null;
+  @JsonProperty("duration")
+  private Integer duration = null;
 
-  public RoleDto name(String name) {
+  public BillingPlansDto name(String name) {
     this.name = name;
     return this;
   }
@@ -33,7 +29,7 @@ public class RoleDto   {
    * Get name
    * @return name
    **/
-  @Schema(example = "Admin", description = "")
+  @Schema(example = "Plans", description = "")
   
     public String getName() {
     return name;
@@ -43,31 +39,23 @@ public class RoleDto   {
     this.name = name;
   }
 
-  public RoleDto privilegeIds(List<Integer> privilegeIds) {
-    this.privilegeIds = privilegeIds;
-    return this;
-  }
-
-  public RoleDto addPrivilegeIdsItem(Integer privilegeIdsItem) {
-    if (this.privilegeIds == null) {
-      this.privilegeIds = new ArrayList<Integer>();
-    }
-    this.privilegeIds.add(privilegeIdsItem);
+  public BillingPlansDto duration(Integer duration) {
+    this.duration = duration;
     return this;
   }
 
   /**
-   * Get privilegeIds
-   * @return privilegeIds
+   * Get duration
+   * @return duration
    **/
-  @Schema(description = "")
+  @Schema(example = "7567", description = "")
   
-    public List<Integer> getPrivilegeIds() {
-    return privilegeIds;
+    public Integer getDuration() {
+    return duration;
   }
 
-  public void setPrivilegeIds(List<Integer> privilegeIds) {
-    this.privilegeIds = privilegeIds;
+  public void setDuration(Integer duration) {
+    this.duration = duration;
   }
 
 
@@ -79,23 +67,23 @@ public class RoleDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RoleDto roleDto = (RoleDto) o;
-    return Objects.equals(this.name, roleDto.name) &&
-        Objects.equals(this.privilegeIds, roleDto.privilegeIds);
+    BillingPlansDto billingPlansDto = (BillingPlansDto) o;
+    return Objects.equals(this.name, billingPlansDto.name) &&
+        Objects.equals(this.duration, billingPlansDto.duration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, privilegeIds);
+    return Objects.hash(name, duration);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RoleDto {\n");
+    sb.append("class BillingPlansDto {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    privilegeIds: ").append(toIndentedString(privilegeIds)).append("\n");
+    sb.append("    duration: ").append(toIndentedString(duration)).append("\n");
     sb.append("}");
     return sb.toString();
   }

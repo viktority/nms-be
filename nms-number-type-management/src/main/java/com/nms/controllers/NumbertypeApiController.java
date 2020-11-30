@@ -72,7 +72,7 @@ public class NumbertypeApiController implements NumbertypeApi {
         //  if (accept != null && accept.contains("application/json")) {
         NumberType numberType = numbertypeService.getNumberTypeById(numberTypeId);
 
-        return new ResponseEntity(numberType == null ? ResponseModel.getModel(Response.ERROR) : numberType, HttpStatus.OK);
+        return new ResponseEntity(numberType == null ? ResponseModel.getModel(Response.NOT_FOUND) : numberType, HttpStatus.OK);
 
 
     }

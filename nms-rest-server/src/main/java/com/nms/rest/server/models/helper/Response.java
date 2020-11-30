@@ -12,7 +12,8 @@ public enum Response {
 
     OK(HttpStatus.OK.toString(), HttpStatus.OK.getReasonPhrase()),
     DELETED(HttpStatus.OK.toString(), "Deleted"),
-    ERROR(HttpStatus.EXPECTATION_FAILED.toString(), "Deleted"),
+    ERROR(HttpStatus.EXPECTATION_FAILED.toString(), "Error Occurred"),
+    NOT_FOUND(HttpStatus.NOT_FOUND.toString(), "Not Found"),
     CREATED(HttpStatus.CREATED.toString(), HttpStatus.CREATED.getReasonPhrase());
     private String messageId;
     private String description;

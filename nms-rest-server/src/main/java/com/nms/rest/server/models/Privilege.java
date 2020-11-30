@@ -4,23 +4,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 /**
  * Privilege
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-18T15:25:03.231Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T10:23:00.257Z[GMT]")
 
 
 public class Privilege   {
   @JsonProperty("id")
-  private Integer id = null;
+  private Long id = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  public Privilege id(Integer id) {
+  @JsonProperty("createdBy")
+  private String createdBy = null;
+
+  @JsonProperty("updatedBy")
+  private String updatedBy = null;
+
+  public Privilege id(Long id) {
     this.id = id;
     return this;
   }
@@ -31,11 +38,12 @@ public class Privilege   {
    **/
   @Schema(example = "1", description = "")
   
-    public Integer getId() {
+    @Valid
+    public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -58,6 +66,44 @@ public class Privilege   {
     this.name = name;
   }
 
+  public Privilege createdBy(String createdBy) {
+    this.createdBy = createdBy;
+    return this;
+  }
+
+  /**
+   * Get createdBy
+   * @return createdBy
+   **/
+  @Schema(example = "abcd -123-dbff-dsds", description = "")
+  
+    public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
+
+  public Privilege updatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+    return this;
+  }
+
+  /**
+   * Get updatedBy
+   * @return updatedBy
+   **/
+  @Schema(example = "abcd -123-dbff-dsds", description = "")
+  
+    public String getUpdatedBy() {
+    return updatedBy;
+  }
+
+  public void setUpdatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -69,12 +115,14 @@ public class Privilege   {
     }
     Privilege privilege = (Privilege) o;
     return Objects.equals(this.id, privilege.id) &&
-        Objects.equals(this.name, privilege.name);
+        Objects.equals(this.name, privilege.name) &&
+        Objects.equals(this.createdBy, privilege.createdBy) &&
+        Objects.equals(this.updatedBy, privilege.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name);
+    return Objects.hash(id, name, createdBy, updatedBy);
   }
 
   @Override
@@ -84,6 +132,8 @@ public class Privilege   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
+    sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
     sb.append("}");
     return sb.toString();
   }

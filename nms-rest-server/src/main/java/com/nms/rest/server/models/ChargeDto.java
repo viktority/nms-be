@@ -4,27 +4,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * RoleDto
+ * ChargeDto
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T10:23:00.257Z[GMT]")
 
 
-public class RoleDto   {
+public class ChargeDto   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("privilegeIds")
-  @Valid
-  private List<Integer> privilegeIds = null;
+  @JsonProperty("value")
+  private Integer value = null;
 
-  public RoleDto name(String name) {
+  public ChargeDto name(String name) {
     this.name = name;
     return this;
   }
@@ -33,7 +29,7 @@ public class RoleDto   {
    * Get name
    * @return name
    **/
-  @Schema(example = "Admin", description = "")
+  @Schema(example = "Charges", description = "")
   
     public String getName() {
     return name;
@@ -43,31 +39,23 @@ public class RoleDto   {
     this.name = name;
   }
 
-  public RoleDto privilegeIds(List<Integer> privilegeIds) {
-    this.privilegeIds = privilegeIds;
-    return this;
-  }
-
-  public RoleDto addPrivilegeIdsItem(Integer privilegeIdsItem) {
-    if (this.privilegeIds == null) {
-      this.privilegeIds = new ArrayList<Integer>();
-    }
-    this.privilegeIds.add(privilegeIdsItem);
+  public ChargeDto value(Integer value) {
+    this.value = value;
     return this;
   }
 
   /**
-   * Get privilegeIds
-   * @return privilegeIds
+   * Get value
+   * @return value
    **/
-  @Schema(description = "")
+  @Schema(example = "23", description = "")
   
-    public List<Integer> getPrivilegeIds() {
-    return privilegeIds;
+    public Integer getValue() {
+    return value;
   }
 
-  public void setPrivilegeIds(List<Integer> privilegeIds) {
-    this.privilegeIds = privilegeIds;
+  public void setValue(Integer value) {
+    this.value = value;
   }
 
 
@@ -79,23 +67,23 @@ public class RoleDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RoleDto roleDto = (RoleDto) o;
-    return Objects.equals(this.name, roleDto.name) &&
-        Objects.equals(this.privilegeIds, roleDto.privilegeIds);
+    ChargeDto chargeDto = (ChargeDto) o;
+    return Objects.equals(this.name, chargeDto.name) &&
+        Objects.equals(this.value, chargeDto.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, privilegeIds);
+    return Objects.hash(name, value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RoleDto {\n");
+    sb.append("class ChargeDto {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    privilegeIds: ").append(toIndentedString(privilegeIds)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }
