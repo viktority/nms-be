@@ -1,0 +1,77 @@
+package com.nms.services;
+
+import com.nms.repositories.FeeRepository;
+import com.nms.rest.server.models.Fee;
+import com.nms.rest.server.models.FeeDto;
+import com.nms.security.AuthenticatedUser;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class FeeService {
+    @Autowired
+    FeeRepository feeRepository;
+
+    @Autowired
+    ModelMapper mapper;
+
+    @Autowired
+    AuthenticatedUser user;
+
+    public boolean addFee(FeeDto body) {
+        com.nms.entities.Fee map = mapper.map(body, com.nms.entities.Fee.class);
+        map.setCreatedBy(user.getUser());
+        map.setUpdatedBy(user.getUser());
+        com.nms.entities.Fee save = feeRepository.save(map);
+        return (save != null);
+    }
+
+    public boolean deleteFeeById(Long feeId) {
+        feeRepository.deleteById(feeId);
+        return true;
+    }
+
+    public Fee updateFeeById(Long feeId, FeeDto body) {
+        Optional<com.nms.entities.Fee> byId = feeRepository.findById(feeId);
+        if (byId.isPresent()) {
+            com.nms.entities.Fee bp = byId.get();
+            bp.setName(body.getName());
+            bp.setAmount(body.getAmount());
+            bp.setFrequency(body.getFrequency());
+            com.nms.entities.Fee save = feeRepository.save(bp);
+
+            com.nms.rest.server.models.Fee map = mapper.map(save, com.nms.rest.server.models.Fee.class);
+            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getUserId());
+            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getUserId());
+            return map;
+        }
+        return null;
+    }
+
+    public List<Fee> getFees() {
+        List<com.nms.rest.server.models.Fee> list = new ArrayList<>();
+        feeRepository.findAll().forEach(as -> {
+            com.nms.rest.server.models.Fee map = mapper.map(as, Fee.class);
+            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
+            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
+            list.add(map);
+        });
+        return list;
+    }
+
+    public Fee getFeeByName(String feeName) {
+        com.nms.entities.Fee byName = feeRepository.findByName(feeName);
+        if (byName != null) {
+            Fee map = mapper.map(byName, Fee.class);
+            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getUserId());
+            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getUserId());
+            return map;
+        }
+        return null;
+    }
+}

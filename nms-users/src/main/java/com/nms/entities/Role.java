@@ -15,6 +15,12 @@ public class Role implements Serializable {
     private long id;
     private String name;
 
+    @OneToOne
+    private User createdBy;
+
+    @OneToOne
+    private User updatedBy;
+
 //    @ManyToMany(mappedBy = "roles")
 //    private Collection<Users> users;
 
@@ -53,6 +59,23 @@ public class Role implements Serializable {
 //    public void setUsers(Collection<Users> users) {
 //        this.users = users;
 //    }
+
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public User getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(User updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public Collection<Privilege> getPrivileges() {
         return privileges;

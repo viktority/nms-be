@@ -5,27 +5,27 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
- * Role
+ * Fee
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T10:23:00.257Z[GMT]")
 
 
-public class Role   {
+public class Fee   {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("privileges")
-  @Valid
-  private List<Privilege> privileges = null;
+  @JsonProperty("amount")
+  private Integer amount = null;
+
+  @JsonProperty("frequency")
+  private String frequency = null;
 
   @JsonProperty("createdBy")
   private String createdBy = null;
@@ -33,7 +33,7 @@ public class Role   {
   @JsonProperty("updatedBy")
   private String updatedBy = null;
 
-  public Role id(Long id) {
+  public Fee id(Long id) {
     this.id = id;
     return this;
   }
@@ -42,7 +42,7 @@ public class Role   {
    * Get id
    * @return id
    **/
-  @Schema(example = "0", description = "")
+  @Schema(example = "1", description = "")
   
     @Valid
     public Long getId() {
@@ -53,7 +53,7 @@ public class Role   {
     this.id = id;
   }
 
-  public Role name(String name) {
+  public Fee name(String name) {
     this.name = name;
     return this;
   }
@@ -62,7 +62,7 @@ public class Role   {
    * Get name
    * @return name
    **/
-  @Schema(example = "Admin", description = "")
+  @Schema(example = "Fee", description = "")
   
     public String getName() {
     return name;
@@ -72,34 +72,46 @@ public class Role   {
     this.name = name;
   }
 
-  public Role privileges(List<Privilege> privileges) {
-    this.privileges = privileges;
-    return this;
-  }
-
-  public Role addPrivilegesItem(Privilege privilegesItem) {
-    if (this.privileges == null) {
-      this.privileges = new ArrayList<Privilege>();
-    }
-    this.privileges.add(privilegesItem);
+  public Fee amount(Integer amount) {
+    this.amount = amount;
     return this;
   }
 
   /**
-   * Get privileges
-   * @return privileges
+   * Get amount
+   * @return amount
    **/
-  @Schema(description = "")
-      @Valid
-    public List<Privilege> getPrivileges() {
-    return privileges;
+  @Schema(example = "7567", description = "")
+  
+    @Valid
+    public Integer getAmount() {
+    return amount;
   }
 
-  public void setPrivileges(List<Privilege> privileges) {
-    this.privileges = privileges;
+  public void setAmount(Integer amount) {
+    this.amount = amount;
   }
 
-  public Role createdBy(String createdBy) {
+  public Fee frequency(String frequency) {
+    this.frequency = frequency;
+    return this;
+  }
+
+  /**
+   * Get frequency
+   * @return frequency
+   **/
+  @Schema(example = "Frequency", description = "")
+  
+    public String getFrequency() {
+    return frequency;
+  }
+
+  public void setFrequency(String frequency) {
+    this.frequency = frequency;
+  }
+
+  public Fee createdBy(String createdBy) {
     this.createdBy = createdBy;
     return this;
   }
@@ -118,7 +130,7 @@ public class Role   {
     this.createdBy = createdBy;
   }
 
-  public Role updatedBy(String updatedBy) {
+  public Fee updatedBy(String updatedBy) {
     this.updatedBy = updatedBy;
     return this;
   }
@@ -146,27 +158,29 @@ public class Role   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Role role = (Role) o;
-    return Objects.equals(this.id, role.id) &&
-        Objects.equals(this.name, role.name) &&
-        Objects.equals(this.privileges, role.privileges) &&
-        Objects.equals(this.createdBy, role.createdBy) &&
-        Objects.equals(this.updatedBy, role.updatedBy);
+    Fee fee = (Fee) o;
+    return Objects.equals(this.id, fee.id) &&
+        Objects.equals(this.name, fee.name) &&
+        Objects.equals(this.amount, fee.amount) &&
+        Objects.equals(this.frequency, fee.frequency) &&
+        Objects.equals(this.createdBy, fee.createdBy) &&
+        Objects.equals(this.updatedBy, fee.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, privileges, createdBy, updatedBy);
+    return Objects.hash(id, name, amount, frequency, createdBy, updatedBy);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Role {\n");
+    sb.append("class Fee {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    privileges: ").append(toIndentedString(privileges)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    frequency: ").append(toIndentedString(frequency)).append("\n");
     sb.append("    createdBy: ").append(toIndentedString(createdBy)).append("\n");
     sb.append("    updatedBy: ").append(toIndentedString(updatedBy)).append("\n");
     sb.append("}");

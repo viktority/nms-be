@@ -6,8 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 
-@Entity(name = "nms_users")
-public class Users implements Serializable {
+@Entity(name = "nms_user")
+public class User implements Serializable {
 
     private static final long serialVersionUID = -2731425678149216053L;
 
@@ -101,6 +101,6 @@ public class Users implements Serializable {
         this.role = role;
     }
 
-    public Users() {
+    public User() {
     }
 }

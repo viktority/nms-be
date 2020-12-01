@@ -3,7 +3,7 @@ package com.nms.config;
 
 import com.nms.entities.Privilege;
 import com.nms.entities.Role;
-import com.nms.entities.Users;
+import com.nms.entities.User;
 import com.nms.repositories.PrivilegeRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
@@ -68,7 +68,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         Role role_client = createRoleIfNotFound("ROLE_CLIENT", clientPrivileges);
 
 
-        Users superUser = new Users();
+        User superUser = new User();
         superUser.setEmail("super_admin@test.com");
         superUser.setUserId(UUID.randomUUID().toString());
         superUser.setEncryptedPassword(bCryptPasswordEncoder.encode("superAdmin"));
@@ -77,7 +77,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         superUser.setActive(true);
         usersRepository.save(superUser);
 
-        Users admin = new Users();
+        User admin = new User();
         admin.setEmail("admin@test.com");
         admin.setUserId(UUID.randomUUID().toString());
         admin.setEncryptedPassword(bCryptPasswordEncoder.encode("admin"));
@@ -86,7 +86,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         admin.setActive(true);
         usersRepository.save(admin);
 
-        Users client = new Users();
+        User client = new User();
         client.setEmail("client@test.com");
         client.setUserId(UUID.randomUUID().toString());
         client.setEncryptedPassword(bCryptPasswordEncoder.encode("client"));
