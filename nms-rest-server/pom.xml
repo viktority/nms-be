@@ -13,7 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Rest Server</name>
     <description>Rest Server Artifacts</description>
-    <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>

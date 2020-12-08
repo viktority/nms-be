@@ -8,11 +8,10 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication(exclude = {JerseyAutoConfiguration.class, FlywayAutoConfiguration.class})
 @EnableEurekaClient
-
-public class NMSAuthentication {
+public class NumberTypeManagement {
 
     public static void main(String[] args) {
-        SpringApplication.run(NMSAuthentication.class, args);
+        SpringApplication.run(NumberTypeManagement.class, args);
     }
 
 }

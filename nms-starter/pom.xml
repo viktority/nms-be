@@ -23,7 +23,7 @@
             <artifactId>nms-rest-server</artifactId>
             <groupId>com.nms.rest.server</groupId>
             <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
+            <type>pom</type>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.flywaydb</groupId>-->
@@ -31,8 +31,8 @@
 <!--            <version>4.1.2</version>-->
 <!--        </dependency>-->
         <dependency>
-            <groupId>com.nms.ntm</groupId>
-            <artifactId>nms-ntm</artifactId>
+            <groupId>com.nms.impl</groupId>
+            <artifactId>nms-impl</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

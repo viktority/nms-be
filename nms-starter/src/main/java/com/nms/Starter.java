@@ -12,13 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication(exclude = {JerseyAutoConfiguration.class, FlywayAutoConfiguration.class})
 @EnableEurekaClient
-@ComponentScan(basePackages = {"com.nms", "com.nms.rest.server", "com.nms.rest.server.configuration"})
+@ComponentScan(basePackages = {"com.nms.*"})
 public class Starter {
 
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
     }
-
+//
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

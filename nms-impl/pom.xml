@@ -8,11 +8,11 @@
         <artifactId>nms</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>nms-ntm</artifactId>
-    <groupId>com.nms.ntm</groupId>
+    <artifactId>nms-impl</artifactId>
+    <groupId>com.nms.impl</groupId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>NMS NTM</name>
-    <packaging>pom</packaging>
+    <name>NMS impl</name>
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -27,7 +27,6 @@
             <artifactId>nms-rest-server</artifactId>
             <groupId>com.nms.rest.server</groupId>
             <version>0.0.1-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.nms.authentication</groupId>
