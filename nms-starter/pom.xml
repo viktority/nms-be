@@ -23,7 +23,6 @@
             <artifactId>nms-rest-server</artifactId>
             <groupId>com.nms.rest.server</groupId>
             <version>0.0.1-SNAPSHOT</version>
-            <type>pom</type>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.flywaydb</groupId>-->
