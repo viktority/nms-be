@@ -70,7 +70,7 @@
     <modules>
         <module>nms-rest-server</module>
         <module>nms-users</module>
-        <module>nms-number-type-management</module>
+        <module>nms-impl</module>
         <module>nms-service-registry</module>
         <module>nms-cloud-config-server</module>
         <module>nms-hystrix-dashboard</module>
