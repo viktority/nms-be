@@ -23,12 +23,12 @@ public class ApplicationStatusService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addApplicationStatus(ApplicationStatusDto body) {
+    public ApplicationStatus addApplicationStatus(ApplicationStatusDto body) {
         com.nms.entities.ApplicationStatus map = mapper.map(body, com.nms.entities.ApplicationStatus.class);
         map.setCreatedBy(user.getUser());
         map.setUpdatedBy(user.getUser());
         com.nms.entities.ApplicationStatus save = applicationStatusRepository.save(map);
-        return (save != null);
+        return (save != null) ? mapper.map(save, ApplicationStatus.class) : null;
     }
 
     public boolean deleteApplicationStatusById(Long applicationStatusId) {

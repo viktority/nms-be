@@ -41,11 +41,11 @@ public class RolesApiController implements RolesApi {
     }
 
     @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    public ResponseEntity<ResponseModel> addRole(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema = @Schema()) @Valid @RequestBody RoleDto body) {
+    public ResponseEntity<Role> addRole(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema = @Schema()) @Valid @RequestBody RoleDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = rolesService.addRole(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        Role created = rolesService.addRole(body);
+        if (created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PreAuthorize("hasAuthority('DELETE_PRIVILEGE')")

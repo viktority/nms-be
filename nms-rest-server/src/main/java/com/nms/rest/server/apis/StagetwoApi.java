@@ -38,7 +38,7 @@ public interface StagetwoApi {
     @RequestMapping(value = "/stagetwo",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addStageTwo(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody StageTwo body);
+    ResponseEntity<StageTwo> addStageTwo(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody StageTwo body);
 
 
     @Operation(summary = "Delete a Application", description = "Delete Application", tags={ "Stage Two Management" })

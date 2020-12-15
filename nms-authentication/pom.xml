@@ -32,14 +32,27 @@
             <version>0.9.1</version>
         </dependency>
         <dependency>
-            <artifactId>nms-rest-server</artifactId>
-            <groupId>com.nms.rest.server</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-            <type>pom</type>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.nms.users</groupId>
-            <artifactId>nms-users</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>2.2.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <artifactId>nms-rest-server</artifactId>
+            <groupId>com.nms.rest.server</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

@@ -53,14 +53,14 @@ public class StageTwoService {
         return stage2;
     }
 
-    public boolean addStageTwo(StageTwo body) {
+    public StageTwo addStageTwo(StageTwo body) {
         com.nms.entities.StageTwo map = mapper.map(body, com.nms.entities.StageTwo.class);
         map.setDevice(body.getDevice());
         map.setFrequencyCoverage(body.getFrequencyCoverage());
         map.setNumberBlock(body.getNumberBlock());
         map.setUserId(usersRepository.findByUserId(body.getUserId()));
-        repository.save(map);
-        return map != null;
+        com.nms.entities.StageTwo save = repository.save(map);
+        return save != null ? mapper.map(save, StageTwo.class) : null;
     }
 
     public boolean deleteStageTwoById(Long stageTwoId) {

@@ -44,11 +44,11 @@ public class ApplicationApiController implements ApplicationApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addApplication(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody ApplicationDto body) {
+    public ResponseEntity<Application> addApplication(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody ApplicationDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = service.addApplication(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        Application created = service.addApplication(body);
+        if (created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteApplicationById(@Parameter(in = ParameterIn.PATH, description = "The Application Id.", required = true, schema = @Schema()) @PathVariable("applicationId") String applicationId) {

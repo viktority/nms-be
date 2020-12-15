@@ -39,7 +39,7 @@ public interface NumbertypeApi {
     @RequestMapping(value = "/numbertype",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addNumberType(@Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema=@Schema()) @Valid @RequestBody NumberTypeDto body);
+    ResponseEntity<NumberType> addNumberType(@Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema=@Schema()) @Valid @RequestBody NumberTypeDto body);
 
 
     @Operation(summary = "Delete number type by id", description = "", tags={ "Number Type Management" })

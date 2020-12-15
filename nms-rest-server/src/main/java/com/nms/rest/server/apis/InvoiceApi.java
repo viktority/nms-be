@@ -39,7 +39,7 @@ public interface InvoiceApi {
     @RequestMapping(value = "/invoice",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addInvoice(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody InvoiceDto body);
+    ResponseEntity<Invoice> addInvoice(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody InvoiceDto body);
 
 
     @Operation(summary = "Delete a Application", description = "Delete Application", tags={ "Invoice Management" })

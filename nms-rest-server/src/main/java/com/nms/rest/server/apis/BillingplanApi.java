@@ -38,7 +38,7 @@ public interface BillingplanApi {
     @RequestMapping(value = "/billingplan",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addBillingPlan(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema=@Schema()) @Valid @RequestBody BillingPlansDto body);
+    ResponseEntity<BillingPlans> addBillingPlan(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema=@Schema()) @Valid @RequestBody BillingPlansDto body);
 
 
     @Operation(summary = "update Billing Plans", description = "Update Billing Plans", tags={ "Billing Plans Management" })

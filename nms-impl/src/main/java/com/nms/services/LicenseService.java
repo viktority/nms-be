@@ -23,12 +23,12 @@ public class LicenseService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addLicense(LicenseDto body) {
+    public License addLicense(LicenseDto body) {
         com.nms.entities.License map = mapper.map(body, com.nms.entities.License.class);
         map.setCreatedBy(user.getUser());
         map.setUpdatedBy(user.getUser());
         com.nms.entities.License save = licenseRepository.save(map);
-        return (save != null);
+        return (save != null) ? mapper.map(save, License.class) : null;
     }
 
     public boolean deleteLicenseById(Long licenseId) {

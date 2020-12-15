@@ -1,6 +1,6 @@
 package com.nms.services;
 
-
+import com.nms.entities.User;
 import com.nms.repositories.*;
 import com.nms.rest.server.models.*;
 import com.nms.security.AuthenticatedUser;
@@ -37,6 +37,8 @@ public class ApplicationService {
 
     @Autowired
     StageFourRepository stageFourRepository;
+    @Autowired
+    UsersService usersService;
 
     public Application getApplicationById(String applicationId) {
         Optional<com.nms.entities.Application> byId = repository.findById(applicationId);
@@ -96,20 +98,22 @@ public class ApplicationService {
     }
 
 
-    public boolean addApplication(ApplicationDto body) {
+    public Application addApplication(ApplicationDto body) {
         String applicationId = UUID.randomUUID().toString();
         com.nms.entities.Application application = mapper.map(body, com.nms.entities.Application.class);
+        User userByUserId = usersService.getUserByUserId(body.getUserId());
+        application.setUserId(userByUserId);
         application.setApplicationId(applicationId);
         application.setApprovalStage(null);
         application.setFinalised(false);
         application.setCreatedBy(user.getUser());
-        application.setUpdatedBy(user.getUser());
+        application.setUpdatedBy(null);
         application.setStageFour(null);
         application.setStageThree(null);
         application.setStageTwo(null);
         application.setStageOne(null);
         com.nms.entities.Application save = repository.save(application);
-        return save != null;
+        return save != null ? mapper.map(save, Application.class) : null;
     }
 
     public boolean deleteApplicationById(String applicationId) {

@@ -26,17 +26,18 @@ public class RolesService {
     @Autowired
     ModelMapper mapper;
 
-    public boolean addRole(RoleDto body) {
+    public Role addRole(RoleDto body) {
         try {
             String name = body.getName();
             List<Integer> privilegeIds = body.getPrivilegeIds();
             List<Privilege> collect = privilegeIds.stream().map(this::apply).collect(Collectors.toList());
             com.nms.entities.Role role = new com.nms.entities.Role(name, collect);
 
-            roleRepository.save(role);
-            return true;
+            com.nms.entities.Role save = roleRepository.save(role);
+            return save != null ? mapper.map(save, Role.class) : null;
+
         } catch (Exception ex) {
-            return false;
+            return null;
         }
     }
 

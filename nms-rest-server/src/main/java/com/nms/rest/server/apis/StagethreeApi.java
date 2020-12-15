@@ -38,7 +38,7 @@ public interface StagethreeApi {
     @RequestMapping(value = "/stagethree",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addStageThree(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody StageThree body);
+    ResponseEntity<StageThree> addStageThree(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema=@Schema()) @Valid @RequestBody StageThree body);
 
 
     @Operation(summary = "Delete a Application", description = "Delete Application", tags={ "Stage Three Management" })

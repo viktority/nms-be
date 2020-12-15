@@ -39,7 +39,7 @@ public interface ApplicationApi {
     @RequestMapping(value = "/application",
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addApplication(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody ApplicationDto body);
+    ResponseEntity<Application> addApplication(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody ApplicationDto body);
 
 
     @Operation(summary = "Delete a Application", description = "Delete Application", tags = {"Application Management"})

@@ -39,7 +39,7 @@ public interface RolesApi {
     @RequestMapping(value = "/roles",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addRole(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema=@Schema()) @Valid @RequestBody RoleDto body);
+    ResponseEntity<Role> addRole(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema=@Schema()) @Valid @RequestBody RoleDto body);
 
 
     @Operation(summary = "Delete a role", description = "Delete role", tags={ "Role Management" })

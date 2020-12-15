@@ -39,7 +39,7 @@ public interface ApplicationstatusApi {
     @RequestMapping(value = "/applicationstatus",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addApplicationStatus(@Parameter(in = ParameterIn.DEFAULT, description = "Application Status to add", schema=@Schema()) @Valid @RequestBody ApplicationStatusDto body);
+    ResponseEntity<ApplicationStatus> addApplicationStatus(@Parameter(in = ParameterIn.DEFAULT, description = "Application Status to add", schema=@Schema()) @Valid @RequestBody ApplicationStatusDto body);
 
 
     @Operation(summary = "Delete a Application Status", description = "Delete Application Status", tags={ "Application Status Management" })

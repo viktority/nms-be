@@ -44,11 +44,11 @@ public class ChargesApiController implements ChargesApi {
     @Autowired
     ChargeService chargeService;
 
-    public ResponseEntity<ResponseModel> addCharge(@Parameter(in = ParameterIn.DEFAULT, description = "Charge to add", schema = @Schema()) @Valid @RequestBody ChargeDto body) {
+    public ResponseEntity<Charge> addCharge(@Parameter(in = ParameterIn.DEFAULT, description = "Charge to add", schema = @Schema()) @Valid @RequestBody ChargeDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = chargeService.addCharge(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        Charge created = chargeService.addCharge(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteChargeById(@Parameter(in = ParameterIn.PATH, description = "The Charge Id.", required = true, schema = @Schema()) @PathVariable("chargeId") Long chargeId) {
