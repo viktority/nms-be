@@ -25,17 +25,17 @@ public class NumbertypeService {
     @Autowired
     NumberTypeRepository numberTypeRepository;
 
-    public boolean addNumberType(NumberTypeDto body) {
+    public NumberType addNumberType(NumberTypeDto body) {
         try {
             List<Integer> approvalStageIds = body.getListOfApprovalStageIds();
             List<com.nms.entities.ApprovalStages> collect = approvalStageIds.stream().map(this::apply).collect(Collectors.toList());
             com.nms.entities.NumberType map = mapper.map(body, com.nms.entities.NumberType.class);
             map.setListOfApprovalStages(collect);
-            numberTypeRepository.save(map);
-            return true;
+            com.nms.entities.NumberType save = numberTypeRepository.save(map);
+            return (save != null) ? mapper.map(save, NumberType.class) : null;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
+            return null;
         }
     }
 

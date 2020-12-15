@@ -44,11 +44,11 @@ public class LicensesApiController implements LicensesApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addLicense(@Parameter(in = ParameterIn.DEFAULT, description = "License to add", schema = @Schema()) @Valid @RequestBody LicenseDto body) {
+    public ResponseEntity<License> addLicense(@Parameter(in = ParameterIn.DEFAULT, description = "License to add", schema = @Schema()) @Valid @RequestBody LicenseDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = licenseService.addLicense(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        License created = licenseService.addLicense(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteLicenseById(@Parameter(in = ParameterIn.PATH, description = "The License Id.", required = true, schema = @Schema()) @PathVariable("licenseId") Long licenseId) {

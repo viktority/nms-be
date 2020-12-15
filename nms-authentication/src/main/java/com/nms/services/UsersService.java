@@ -104,7 +104,7 @@ public class UsersService implements UserDetailsService {
 
         User userEntity = usersRepository.findByUserId(userId);
         if (userEntity == null)
-            throw new UsernameNotFoundException("User not found");
+            return null;
 
         return userEntity;
     }

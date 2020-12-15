@@ -8,6 +8,7 @@ package com.nms.rest.server.apis;
 
 import com.nms.rest.server.models.Privilege;
 import com.nms.rest.server.models.PrivilegeDto;
+import com.nms.rest.server.models.ResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -38,7 +39,7 @@ public interface PrivilegesApi {
     @RequestMapping(value = "/privileges",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> addPrivilege(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema=@Schema()) @Valid @RequestBody PrivilegeDto body);
+    ResponseEntity<Privilege> addPrivilege(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema=@Schema()) @Valid @RequestBody PrivilegeDto body);
 
 
     @Operation(summary = "Delete a Privilege", description = "Delete Privilege", tags={ "Privilege Management" })
@@ -48,7 +49,7 @@ public interface PrivilegesApi {
         @ApiResponse(responseCode = "400", description = "Unable to delete service.") })
     @RequestMapping(value = "/privileges/{privilegeId}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> deletePrivilegeById(@Parameter(in = ParameterIn.PATH, description = "The Privilege Id.", required=true, schema=@Schema()) @PathVariable("privilegeId") Long privilegeId);
+    ResponseEntity<ResponseModel> deletePrivilegeById(@Parameter(in = ParameterIn.PATH, description = "The Privilege Id.", required=true, schema=@Schema()) @PathVariable("privilegeId") Long privilegeId);
 
 
     @Operation(summary = "searches for Privilege by name", description = "", tags={ "Privilege Management" })

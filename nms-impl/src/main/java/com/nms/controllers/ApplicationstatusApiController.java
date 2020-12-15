@@ -44,11 +44,11 @@ public class ApplicationstatusApiController implements ApplicationstatusApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addApplicationStatus(@Parameter(in = ParameterIn.DEFAULT, description = "Application Status to add", schema = @Schema()) @Valid @RequestBody ApplicationStatusDto body) {
+    public ResponseEntity<ApplicationStatus> addApplicationStatus(@Parameter(in = ParameterIn.DEFAULT, description = "Application Status to add", schema = @Schema()) @Valid @RequestBody ApplicationStatusDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = applicationStatusService.addApplicationStatus(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        ApplicationStatus created = applicationStatusService.addApplicationStatus(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteApplicationStatusById(@Parameter(in = ParameterIn.PATH, description = "The Application Status Id.", required = true, schema = @Schema()) @PathVariable("applicationStatusId") Long applicationStatusId) {

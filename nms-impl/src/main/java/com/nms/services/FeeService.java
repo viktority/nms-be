@@ -23,12 +23,12 @@ public class FeeService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addFee(FeeDto body) {
+    public Fee addFee(FeeDto body) {
         com.nms.entities.Fee map = mapper.map(body, com.nms.entities.Fee.class);
         map.setCreatedBy(user.getUser());
         map.setUpdatedBy(user.getUser());
         com.nms.entities.Fee save = feeRepository.save(map);
-        return (save != null);
+        return (save != null) ? mapper.map(save, Fee.class) : null;
     }
 
     public boolean deleteFeeById(Long feeId) {

@@ -44,11 +44,11 @@ public class BillingplanApiController implements BillingplanApi {
     @Autowired
     BillingPlanService billingPlanService;
 
-    public ResponseEntity<ResponseModel> addBillingPlan(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema = @Schema()) @Valid @RequestBody BillingPlansDto body) {
+    public ResponseEntity<BillingPlans> addBillingPlan(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema = @Schema()) @Valid @RequestBody BillingPlansDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = billingPlanService.addBillingPlan(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        BillingPlans created = billingPlanService.addBillingPlan(body);
+        if (created != null) return new ResponseEntity(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<BillingPlans> billingPlanId(@Parameter(in = ParameterIn.PATH, description = "The billingPlanId used to update the service information", required = true, schema = @Schema()) @PathVariable("billingPlanId") Long billingPlanId, @Parameter(in = ParameterIn.DEFAULT, description = "The Billing Plan to update.", required = true, schema = @Schema()) @Valid @RequestBody BillingPlansDto body) {

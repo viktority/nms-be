@@ -78,7 +78,7 @@ public class StageOneService {
         return true;
     }
 
-    public boolean addStageOne(StageOne body) {
+    public StageOne addStageOne(StageOne body) {
         com.nms.entities.StageOne map = mapper.map(body, com.nms.entities.StageOne.class);
         Integer licenseId = body.getLicenseId();
         if (licenseId != null && licenseId > 0) {
@@ -97,8 +97,8 @@ public class StageOneService {
             }
         }
         map.setUserId(usersRepository.findByUserId(body.getUserId()));
-        repository.save(map);
-        return map != null;
+        com.nms.entities.StageOne save = repository.save(map);
+        return save != null ? mapper.map(save, StageOne.class) : null;
     }
 
 

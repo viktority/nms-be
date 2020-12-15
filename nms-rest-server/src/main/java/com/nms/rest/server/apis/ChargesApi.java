@@ -39,7 +39,7 @@ public interface ChargesApi {
     @RequestMapping(value = "/charges",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addCharge(@Parameter(in = ParameterIn.DEFAULT, description = "Charge to add", schema=@Schema()) @Valid @RequestBody ChargeDto body);
+    ResponseEntity<Charge> addCharge(@Parameter(in = ParameterIn.DEFAULT, description = "Charge to add", schema=@Schema()) @Valid @RequestBody ChargeDto body);
 
 
     @Operation(summary = "Delete a Charge", description = "Delete Charge", tags={ "Charges Management" })

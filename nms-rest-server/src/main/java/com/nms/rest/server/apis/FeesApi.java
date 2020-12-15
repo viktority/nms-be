@@ -38,7 +38,7 @@ public interface FeesApi {
     @RequestMapping(value = "/fees",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addFee(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema=@Schema()) @Valid @RequestBody FeeDto body);
+    ResponseEntity<Fee> addFee(@Parameter(in = ParameterIn.DEFAULT, description = "Fee to add", schema=@Schema()) @Valid @RequestBody FeeDto body);
 
 
     @Operation(summary = "Delete a Fee", description = "Delete Fee", tags={ "Fee Management" })

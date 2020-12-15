@@ -58,12 +58,12 @@ public class StageFourService {
         return true;
     }
 
-    public boolean addStageFour(StageFour body) {
+    public StageFour addStageFour(StageFour body) {
         com.nms.entities.StageFour map = mapper.map(body, com.nms.entities.StageFour.class);
         map.setUndertaken(false);
         map.setUserId(usersRepository.findByUserId(body.getUserId()));
-        repository.save(map);
-        return map != null;
+        com.nms.entities.StageFour save = repository.save(map);
+        return save != null ? mapper.map(save, StageFour.class) : null;
     }
 
     private StageFour deconstructStage4(com.nms.entities.StageFour a) {

@@ -24,12 +24,12 @@ public class StageThreeService {
     @Autowired
     UsersRepository usersRepository;
 
-    public boolean addStageThree(StageThree body) {
+    public StageThree addStageThree(StageThree body) {
         com.nms.entities.StageThree map = mapper.map(body, com.nms.entities.StageThree.class);
         map.setDocumentCompleted(false);
         map.setUserId(usersRepository.findByUserId(body.getUserId()));
-        repository.save(map);
-        return map != null;
+        com.nms.entities.StageThree save = repository.save(map);
+        return save != null?mapper.map(save,StageThree.class):null;
     }
 
     public boolean deleteStageThreeById(Long stageThreeId) {

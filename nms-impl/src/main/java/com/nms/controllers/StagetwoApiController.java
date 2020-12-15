@@ -43,11 +43,11 @@ public class StagetwoApiController implements StagetwoApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addStageTwo(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageTwo body) {
+    public ResponseEntity<StageTwo> addStageTwo(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageTwo body) {
         String accept = request.getHeader("Accept");
-        boolean created = service.addStageTwo(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        StageTwo created = service.addStageTwo(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteStageTwonById(@Parameter(in = ParameterIn.PATH, description = "The Application Id.", required = true, schema = @Schema()) @PathVariable("stageTwoId") Long stageTwoId) {

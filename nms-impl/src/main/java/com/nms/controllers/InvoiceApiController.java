@@ -44,11 +44,11 @@ public class InvoiceApiController implements InvoiceApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addInvoice(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody InvoiceDto body) {
+    public ResponseEntity<Invoice> addInvoice(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody InvoiceDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = service.addInvoice(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        Invoice created = service.addInvoice(body);
+        if (created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteInvoicenById(@Parameter(in = ParameterIn.PATH, description = "The Application Id.", required = true, schema = @Schema()) @PathVariable("invoiceId") Long invoiceId) {

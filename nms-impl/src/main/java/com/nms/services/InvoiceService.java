@@ -3,6 +3,7 @@ package com.nms.services;
 
 import com.nms.entities.Application;
 import com.nms.entities.Fee;
+import com.nms.entities.User;
 import com.nms.repositories.ApplicationRepository;
 import com.nms.repositories.FeeRepository;
 import com.nms.repositories.InvoiceRepository;
@@ -32,26 +33,32 @@ public class InvoiceService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addInvoice(InvoiceDto body) {
+    @Autowired
+    UsersService usersService;
+
+    public Invoice addInvoice(InvoiceDto body) {
+        mapper.getConfiguration().setAmbiguityIgnored(true);
         com.nms.entities.Invoice map = mapper.map(body, com.nms.entities.Invoice.class);
         String applicationId = body.getApplicationId();
         if (applicationId != null) {
             Optional<Application> byId = applicationRepository.findById(applicationId);
             if (byId.isPresent()) map.setApplication(byId.get());
-            else return false;
+            else map.setApplication(null);
         }
         Integer feeId = body.getFeeId();
         if (feeId != null && feeId > 0) {
             Optional<Fee> byId = feeRepository.findById(feeId.longValue());
             if (byId.isPresent()) map.setFee(byId.get());
-            else return false;
+            else map.setFee(null);
         }
+        User userByUserId = usersService.getUserByUserId(body.getUserId());
+        map.setUserId(userByUserId);
         map.setUpdatedBy(user.getUser());
         map.setCreatedBy(user.getUser());
         map.setPaid(false);
 
         com.nms.entities.Invoice save = repository.save(map);
-        return save != null;
+        return save != null ? mapper.map(save, Invoice.class) : null;
     }
 
     public boolean deleteInvoicenById(Long invoiceId) {

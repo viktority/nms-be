@@ -43,10 +43,10 @@ public class StagefourApiController implements StagefourApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addStageFour(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageFour body) {
+    public ResponseEntity addStageFour(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageFour body) {
         String accept = request.getHeader("Accept");
-        boolean created = service.addStageFour(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
+        StageFour created = service.addStageFour(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
         return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

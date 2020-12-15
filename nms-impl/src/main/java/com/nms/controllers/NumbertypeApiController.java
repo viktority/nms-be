@@ -42,11 +42,11 @@ public class NumbertypeApiController implements NumbertypeApi {
     }
 
     @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    public ResponseEntity<ResponseModel> addNumberType(@Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema = @Schema()) @Valid @RequestBody NumberTypeDto body) {
+    public ResponseEntity<NumberType> addNumberType(@Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema = @Schema()) @Valid @RequestBody NumberTypeDto body) {
         String accept = request.getHeader("Accept");
-        boolean created = numbertypeService.addNumberType(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        NumberType created = numbertypeService.addNumberType(body);
+        if (created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PreAuthorize("hasAuthority('DELETE_PRIVILEGE')")

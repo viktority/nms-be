@@ -39,7 +39,7 @@ public interface LicensesApi {
     @RequestMapping(value = "/licenses",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<ResponseModel> addLicense(@Parameter(in = ParameterIn.DEFAULT, description = "License to add", schema=@Schema()) @Valid @RequestBody LicenseDto body);
+    ResponseEntity<License> addLicense(@Parameter(in = ParameterIn.DEFAULT, description = "License to add", schema=@Schema()) @Valid @RequestBody LicenseDto body);
 
 
     @Operation(summary = "Delete a License", description = "Delete License", tags={ "License Management" })

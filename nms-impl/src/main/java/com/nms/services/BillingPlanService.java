@@ -23,12 +23,12 @@ public class BillingPlanService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addBillingPlan(BillingPlansDto body) {
+    public BillingPlans addBillingPlan(BillingPlansDto body) {
         com.nms.entities.BillingPlan map = mapper.map(body, com.nms.entities.BillingPlan.class);
         map.setCreatedBy(user.getUser());
         map.setUpdatedBy(user.getUser());
         com.nms.entities.BillingPlan save = billingPlanRepository.save(map);
-        return (save != null);
+        return (save != null) ? mapper.map(save, BillingPlans.class) : null;
     }
 
     public boolean deleteBillingPlanById(Long billingPlanId) {

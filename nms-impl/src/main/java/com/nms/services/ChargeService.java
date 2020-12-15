@@ -23,12 +23,12 @@ public class ChargeService {
     @Autowired
     AuthenticatedUser user;
 
-    public boolean addCharge(ChargeDto body) {
+    public Charge addCharge(ChargeDto body) {
         com.nms.entities.Charge map = mapper.map(body, com.nms.entities.Charge.class);
         map.setCreatedBy(user.getUser());
         map.setUpdatedBy(user.getUser());
         com.nms.entities.Charge save = chargeRepository.save(map);
-        return (save != null);
+        return (save != null) ? mapper.map(save, Charge.class) : null;
     }
 
     public boolean deleteChargeById(Long chargeId) {

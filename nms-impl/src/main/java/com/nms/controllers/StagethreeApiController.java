@@ -43,11 +43,11 @@ public class StagethreeApiController implements StagethreeApi {
         this.request = request;
     }
 
-    public ResponseEntity<ResponseModel> addStageThree(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageThree body) {
+    public ResponseEntity<StageThree> addStageThree(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageThree body) {
         String accept = request.getHeader("Accept");
-        boolean created = service.addStageThree(body);
-        if (created) return new ResponseEntity<>(ResponseModel.getModel(Response.CREATED), HttpStatus.CREATED);
-        return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        StageThree created = service.addStageThree(body);
+        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public ResponseEntity<ResponseModel> deleteStageThreenById(@Parameter(in = ParameterIn.PATH, description = "The Application Id.", required = true, schema = @Schema()) @PathVariable("stageThreeId") Long stageThreeId) {
