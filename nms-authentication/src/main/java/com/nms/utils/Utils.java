@@ -3,7 +3,6 @@ package com.nms.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.impl.crypto.MacProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -35,14 +34,21 @@ public class Utils {
             Date today = new Date();
 
             return tokenExpirationDate.before(today);
-        } catch (SignatureException ex) {
+        } catch (Exception ex) {
+            ex.printStackTrace();
             return true;
         }
     }
 
     public static String generateToken(String userId, Long expirationTime) {
-        return Jwts.builder().setSubject(userId)
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(SignatureAlgorithm.HS512, getTokenSecret()).compact();
+        try {
+            return Jwts.builder().setSubject(userId)
+                    .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                    .signWith(SignatureAlgorithm.HS512, getTokenSecret()).compact();
+        } catch (Exception ex) {
+            return null;
+        }
+
+
     }
 }

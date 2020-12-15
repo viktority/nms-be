@@ -29,7 +29,7 @@ public class UsersController {
 
     @GetMapping("/status/check")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    //@PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public String status() {
         return "Working on port " + env.getProperty("local.server.port") + ", with token = "
                 + env.getProperty("token.secret");
@@ -51,7 +51,7 @@ public class UsersController {
     @ApiOperation(value = "get all activity", notes = "")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(value = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+   // @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
 
         User userDto = usersService.getUserByUserId(userId);
@@ -62,7 +62,7 @@ public class UsersController {
     @ApiOperation(value = "get all activity", notes = "")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
+   // @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
     public ResponseEntity<List<User>> getAllUser() {
 
         List<User> userDto = usersService.getUsers();

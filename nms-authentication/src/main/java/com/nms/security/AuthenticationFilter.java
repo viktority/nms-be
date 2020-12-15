@@ -24,49 +24,54 @@ import java.util.Date;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-	private UsersService usersService;
-	private Environment environment;
+    private UsersService usersService;
+    private Environment environment;
 
-	public AuthenticationFilter(UsersService usersService, Environment environment,
-			AuthenticationManager authenticationManager) {
-		this.usersService = usersService;
-		this.environment = environment;
-		super.setAuthenticationManager(authenticationManager);
-	}
+    public AuthenticationFilter(UsersService usersService, Environment environment,
+                                AuthenticationManager authenticationManager) {
+        this.usersService = usersService;
+        this.environment = environment;
+        super.setAuthenticationManager(authenticationManager);
+    }
 
-	@Override
-	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-			throws AuthenticationException {
-		try {
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
+            throws AuthenticationException {
+        try {
 
-			LoginDto creds = new ObjectMapper().readValue(req.getInputStream(), LoginDto.class);
+            LoginDto creds = new ObjectMapper().readValue(req.getInputStream(), LoginDto.class);
 
-			return getAuthenticationManager().authenticate(
-					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
-			// usersService.getAuthorities(usersService.getUserRoles(creds.getEmail()))
+            return getAuthenticationManager().authenticate(
+                    new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+            // usersService.getAuthorities(usersService.getUserRoles(creds.getEmail()))
 
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	@Override
-	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
+    @Override
+    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-		String userName = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
-		User userDetails = usersService.getUserDetailsByEmail(userName);
-		// roles.put("albums", userDetails.getAlbums());
+        String userName = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+        User userDetails = usersService.getUserDetailsByEmail(userName);
+        // roles.put("albums", userDetails.getAlbums());
 
-		String token = environment.getProperty("authorization.token.header.prefix") +" "+ getToken(userDetails);
-		res.addHeader("token", token);
-		res.addHeader("userId", userDetails.getUserId());
-	}
+        String token = environment.getProperty("authorization.token.header.prefix") + " " + getToken(userDetails);
+        res.addHeader("token", token);
+        res.addHeader("userId", userDetails.getUserId());
+    }
 
-	private String getToken(User userDetails) {
-		return Jwts.builder().setSubject(userDetails.getUserId())
-				.setExpiration(new Date(
-						System.currentTimeMillis() + Long.parseLong(environment.getProperty("token.expiration_time"))))
-				.signWith(SignatureAlgorithm.HS512, Utils.getTokenSecret()).compact();
-	}
+    private String getToken(User userDetails) {
+        try {
+            return Jwts.builder().setSubject(userDetails.getUserId())
+                    .setExpiration(new Date(
+                            System.currentTimeMillis() + Long.parseLong(environment.getProperty("token.expiration_time"))))
+                    .signWith(SignatureAlgorithm.HS512, Utils.getTokenSecret()).compact();
+        } catch (Exception ex) {
+            return null;
+        }
+
+    }
 
 }
