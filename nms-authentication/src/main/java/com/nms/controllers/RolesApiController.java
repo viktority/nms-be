@@ -40,7 +40,7 @@ public class RolesApiController implements RolesApi {
         this.request = request;
     }
 
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    //@PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity<Role> addRole(@Parameter(in = ParameterIn.DEFAULT, description = "Role to add", schema = @Schema()) @Valid @RequestBody RoleDto body) {
         String accept = request.getHeader("Accept");
         Role created = rolesService.addRole(body);
@@ -48,14 +48,14 @@ public class RolesApiController implements RolesApi {
         return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PreAuthorize("hasAuthority('DELETE_PRIVILEGE')")
+    //@PreAuthorize("hasAuthority('DELETE_PRIVILEGE')")
     public ResponseEntity<ResponseModel> deleteRoleById(@Parameter(in = ParameterIn.PATH, description = "The role Id.", required = true, schema = @Schema()) @PathVariable("roleId") Integer roleId) {
         boolean deleted = rolesService.deleteRole(roleId);
         if (deleted) return new ResponseEntity<>(ResponseModel.getModel(Response.DELETED), HttpStatus.OK);
         return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
+    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<Role> getRoleByName(@Parameter(in = ParameterIn.PATH, description = "The roleName used to update the service information", required = true, schema = @Schema()) @PathVariable("roleName") String roleName) {
         String accept = request.getHeader("Accept");
         //   if (accept != null && accept.contains("application/json")) {
@@ -66,7 +66,7 @@ public class RolesApiController implements RolesApi {
 
     }
 
-    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
+    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<List<Role>> getRoles() {
         String accept = request.getHeader("Accept");
         // if (accept != null && accept.contains("application/json")) {
@@ -75,7 +75,7 @@ public class RolesApiController implements RolesApi {
 
     }
 
-    @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
+   // @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
     public ResponseEntity<Role> updateRoleByRoleId(@Parameter(in = ParameterIn.PATH, description = "The roleId used to update the service information", required = true, schema = @Schema()) @PathVariable("roleId") Integer roleId, @Parameter(in = ParameterIn.DEFAULT, description = "The role to update.", required = true, schema = @Schema()) @Valid @RequestBody RoleDto body) {
         String accept = request.getHeader("Accept");
         //   if (accept != null && accept.contains("application/json")) {
