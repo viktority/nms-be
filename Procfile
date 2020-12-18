@@ -1,1 +1,1 @@
-web: java -jar nms-impl/target/nms-impl-0.0.1-SNAPSHOT.war
+web: java -Dserver.port=$PORT -jar nms-impl/target/nms-impl-0.0.1-SNAPSHOT.war
