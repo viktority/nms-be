@@ -1,9 +1,9 @@
 package com.nms.services;
 
+import com.nms.models.NumberType;
+import com.nms.models.NumberTypeDto;
 import com.nms.repositories.ApprovalStageRepository;
 import com.nms.repositories.NumberTypeRepository;
-import com.nms.rest.server.models.NumberType;
-import com.nms.rest.server.models.NumberTypeDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

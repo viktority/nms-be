@@ -2,11 +2,11 @@ package com.nms.controllers;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nms.rest.server.apis.LicensesApi;
-import com.nms.rest.server.models.License;
-import com.nms.rest.server.models.LicenseDto;
-import com.nms.rest.server.models.ResponseModel;
-import com.nms.rest.server.models.helper.Response;
+import com.nms.apis.LicensesApi;
+import com.nms.models.License;
+import com.nms.models.LicenseDto;
+import com.nms.models.ResponseModel;
+import com.nms.models.helper.Response;
 import com.nms.services.LicenseService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

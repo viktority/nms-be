@@ -1,9 +1,9 @@
 package com.nms.services;
 
 
+import com.nms.models.ApplicationStatus;
+import com.nms.models.ApplicationStatusDto;
 import com.nms.repositories.ApplicationStatusRepository;
-import com.nms.rest.server.models.ApplicationStatus;
-import com.nms.rest.server.models.ApplicationStatusDto;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

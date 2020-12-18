@@ -2,11 +2,11 @@ package com.nms.controllers;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nms.rest.server.apis.ApplicationstatusApi;
-import com.nms.rest.server.models.ApplicationStatus;
-import com.nms.rest.server.models.ApplicationStatusDto;
-import com.nms.rest.server.models.ResponseModel;
-import com.nms.rest.server.models.helper.Response;
+import com.nms.apis.ApplicationstatusApi;
+import com.nms.models.ApplicationStatus;
+import com.nms.models.ApplicationStatusDto;
+import com.nms.models.ResponseModel;
+import com.nms.models.helper.Response;
 import com.nms.services.ApplicationStatusService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

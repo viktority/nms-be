@@ -1,8 +1,8 @@
 package com.nms.services;
 
+import com.nms.models.BillingPlans;
+import com.nms.models.BillingPlansDto;
 import com.nms.repositories.BillingPlanRepository;
-import com.nms.rest.server.models.BillingPlans;
-import com.nms.rest.server.models.BillingPlansDto;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
