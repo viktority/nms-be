@@ -2,9 +2,9 @@ package com.nms.services;
 
 
 import com.nms.entities.User;
+import com.nms.models.StageFour;
 import com.nms.repositories.StageFourRepository;
 import com.nms.repositories.UsersRepository;
-import com.nms.rest.server.models.StageFour;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

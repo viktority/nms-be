@@ -1,8 +1,8 @@
 package com.nms.services;
 
 import com.nms.entities.User;
+import com.nms.models.*;
 import com.nms.repositories.*;
-import com.nms.rest.server.models.*;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

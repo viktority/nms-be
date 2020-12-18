@@ -77,13 +77,13 @@
         </plugins>
     </build>
     <modules>
-        <module>nms-rest-server</module>
+<!--        <module>nms-rest-server</module>-->
         <module>nms-impl</module>
         <module>nms-service-registry</module>
         <module>nms-cloud-config-server</module>
         <module>nms-hystrix-dashboard</module>
         <module>nms-cloud-gateway</module>
-        <module>nms-authentication</module>
-        <module>nms-starter</module>
+<!--        <module>nms-authentication</module>-->
+<!--        <module>nms-starter</module>-->
     </modules>
 </project>

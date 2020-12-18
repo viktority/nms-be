@@ -1,10 +1,10 @@
 package com.nms.controllers;
 
-import com.nms.rest.server.apis.NumbertypeApi;
-import com.nms.rest.server.models.NumberType;
-import com.nms.rest.server.models.NumberTypeDto;
-import com.nms.rest.server.models.ResponseModel;
-import com.nms.rest.server.models.helper.Response;
+import com.nms.apis.NumbertypeApi;
+import com.nms.models.NumberType;
+import com.nms.models.NumberTypeDto;
+import com.nms.models.ResponseModel;
+import com.nms.models.helper.Response;
 import com.nms.services.NumbertypeService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

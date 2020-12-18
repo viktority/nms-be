@@ -1,8 +1,8 @@
 package com.nms.services;
 
+import com.nms.models.Charge;
+import com.nms.models.ChargeDto;
 import com.nms.repositories.ChargeRepository;
-import com.nms.rest.server.models.Charge;
-import com.nms.rest.server.models.ChargeDto;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

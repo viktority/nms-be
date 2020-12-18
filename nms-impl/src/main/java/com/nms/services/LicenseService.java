@@ -1,8 +1,8 @@
 package com.nms.services;
 
+import com.nms.models.License;
+import com.nms.models.LicenseDto;
 import com.nms.repositories.LicenseRepository;
-import com.nms.rest.server.models.License;
-import com.nms.rest.server.models.LicenseDto;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

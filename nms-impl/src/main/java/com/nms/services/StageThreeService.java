@@ -2,9 +2,9 @@ package com.nms.services;
 
 
 import com.nms.entities.User;
+import com.nms.models.StageThree;
 import com.nms.repositories.StageThreeRepository;
 import com.nms.repositories.UsersRepository;
-import com.nms.rest.server.models.StageThree;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class StageThreeService {
     }
 
     public List<StageThree> getStageThrees() {
-        List<com.nms.rest.server.models.StageThree> stage3 = new ArrayList<>();
+        List<StageThree> stage3 = new ArrayList<>();
         Iterable<com.nms.entities.StageThree> all = repository.findAll();
         all.forEach(a -> {
             stage3.add(deconstructStage3(a));

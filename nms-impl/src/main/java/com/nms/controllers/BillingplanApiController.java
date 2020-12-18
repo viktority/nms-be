@@ -2,11 +2,11 @@ package com.nms.controllers;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nms.rest.server.apis.BillingplanApi;
-import com.nms.rest.server.models.BillingPlans;
-import com.nms.rest.server.models.BillingPlansDto;
-import com.nms.rest.server.models.ResponseModel;
-import com.nms.rest.server.models.helper.Response;
+import com.nms.apis.BillingplanApi;
+import com.nms.models.BillingPlans;
+import com.nms.models.BillingPlansDto;
+import com.nms.models.ResponseModel;
+import com.nms.models.helper.Response;
 import com.nms.services.BillingPlanService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

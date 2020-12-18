@@ -1,8 +1,8 @@
 package com.nms.services;
 
+import com.nms.models.Fee;
+import com.nms.models.FeeDto;
 import com.nms.repositories.FeeRepository;
-import com.nms.rest.server.models.Fee;
-import com.nms.rest.server.models.FeeDto;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class FeeService {
             bp.setFrequency(body.getFrequency());
             com.nms.entities.Fee save = feeRepository.save(bp);
 
-            com.nms.rest.server.models.Fee map = mapper.map(save, com.nms.rest.server.models.Fee.class);
+            Fee map = mapper.map(save, Fee.class);
             map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getUserId());
             map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getUserId());
             return map;
@@ -54,9 +54,9 @@ public class FeeService {
     }
 
     public List<Fee> getFees() {
-        List<com.nms.rest.server.models.Fee> list = new ArrayList<>();
+        List<Fee> list = new ArrayList<>();
         feeRepository.findAll().forEach(as -> {
-            com.nms.rest.server.models.Fee map = mapper.map(as, Fee.class);
+            Fee map = mapper.map(as, Fee.class);
             map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
             map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
             list.add(map);
