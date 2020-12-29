@@ -13,14 +13,14 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-18T15:25:03.231Z[GMT]")
 
 
-public class ApprovalStages   {
+public class ApprovalStage {
   @JsonProperty("id")
   private Integer id = null;
 
   @JsonProperty("name")
   private String name = null;
 
-  public ApprovalStages id(Integer id) {
+  public ApprovalStage id(Integer id) {
     this.id = id;
     return this;
   }
@@ -39,7 +39,7 @@ public class ApprovalStages   {
     this.id = id;
   }
 
-  public ApprovalStages name(String name) {
+  public ApprovalStage name(String name) {
     this.name = name;
     return this;
   }
@@ -67,9 +67,9 @@ public class ApprovalStages   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApprovalStages approvalStages = (ApprovalStages) o;
-    return Objects.equals(this.id, approvalStages.id) &&
-        Objects.equals(this.name, approvalStages.name);
+    ApprovalStage approvalStage = (ApprovalStage) o;
+    return Objects.equals(this.id, approvalStage.id) &&
+        Objects.equals(this.name, approvalStage.name);
   }
 
   @Override

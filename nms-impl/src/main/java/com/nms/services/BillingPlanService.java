@@ -63,6 +63,8 @@ public class BillingPlanService {
         if (byId.isPresent()) {
             com.nms.entities.BillingPlan bp = byId.get();
             bp.setName(body.getName());
+            bp.setDuration(body.getDuration());
+            bp.setUpdatedBy(user == null ? null : user.getUser());
             com.nms.entities.BillingPlan save = billingPlanRepository.save(bp);
 
             BillingPlans map = mapper.map(save, BillingPlans.class);

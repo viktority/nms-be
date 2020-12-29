@@ -1,14 +1,17 @@
 package com.nms.services;
 
+import com.nms.entities.Role;
 import com.nms.models.Privilege;
 import com.nms.models.PrivilegeDto;
 import com.nms.repositories.PrivilegeRepository;
+import com.nms.repositories.RoleRepository;
 import com.nms.security.AuthenticatedUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,8 @@ public class PrivilegeService {
     @Autowired
     ModelMapper mapper;
 
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     AuthenticatedUser user;
@@ -40,13 +45,23 @@ public class PrivilegeService {
     }
 
     public boolean deletePrivilegeById(Long privilegeId) {
-
-        try {
-            privilegeRepository.deleteById(privilegeId);
-            return true;
-        } catch (Exception ex) {
-            return false;
+        Optional<com.nms.entities.Privilege> byId = privilegeRepository.findById(privilegeId);
+        if(byId.isPresent()){
+            List<Role> roles = roleRepository.findByPrivilegesId(privilegeId.longValue());
+            roles.forEach(role -> {
+                Collection<com.nms.entities.Privilege> privileges = role.getPrivileges();
+                privileges.remove(byId.get());
+                role.setPrivileges(privileges);
+                roleRepository.save(role);
+            });
+            try {
+                privilegeRepository.deleteById(privilegeId);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
         }
+      return false;
     }
 
     public Privilege getPrivilegeByName(String privilegeName) {

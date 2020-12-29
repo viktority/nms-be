@@ -33,7 +33,7 @@ public class Application {
     private StageFour stageFour = null;
 
     @JsonProperty("approvalStage")
-    private ApprovalStages approvalStage = null;
+    private ApprovalStage approvalStage = null;
 
     @JsonProperty("finalised")
     private Boolean finalised = null;
@@ -160,7 +160,7 @@ public class Application {
         this.stageFour = stageFour;
     }
 
-    public Application approvalStage(ApprovalStages approvalStage) {
+    public Application approvalStage(ApprovalStage approvalStage) {
         this.approvalStage = approvalStage;
         return this;
     }
@@ -173,11 +173,11 @@ public class Application {
     @Schema(description = "")
 
     @Valid
-    public ApprovalStages getApprovalStage() {
+    public ApprovalStage getApprovalStage() {
         return approvalStage;
     }
 
-    public void setApprovalStage(ApprovalStages approvalStage) {
+    public void setApprovalStage(ApprovalStage approvalStage) {
         this.approvalStage = approvalStage;
     }
 

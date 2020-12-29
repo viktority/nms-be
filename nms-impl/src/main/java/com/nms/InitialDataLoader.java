@@ -1,4 +1,4 @@
-package config;
+package com.nms;
 
 
 import com.nms.entities.ApprovalStages;
@@ -10,7 +10,6 @@ import com.nms.repositories.PrivilegeRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,7 +21,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration
-@ConditionalOnProperty(value = "com.nms.database.up", havingValue = "false", matchIfMissing = true)
 public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired

@@ -1,10 +1,12 @@
 package com.nms.services;
 
 import com.nms.entities.Privilege;
+import com.nms.entities.User;
 import com.nms.models.Role;
 import com.nms.models.RoleDto;
 import com.nms.repositories.PrivilegeRepository;
 import com.nms.repositories.RoleRepository;
+import com.nms.repositories.UsersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class RolesService {
 
     @Autowired
     PrivilegeRepository privilegeRepository;
+
+    @Autowired
+    UsersRepository usersRepository;
 
     @Autowired
     ModelMapper mapper;
@@ -42,7 +47,11 @@ public class RolesService {
     }
 
     public boolean deleteRole(Integer roleId) {
-
+        List<User> users = usersRepository.findByRoleId(roleId.longValue());
+        users.forEach(user -> {
+            user.setRole(null);
+            usersRepository.save(user);
+        });
         try {
             roleRepository.deleteById(roleId.longValue());
             return true;

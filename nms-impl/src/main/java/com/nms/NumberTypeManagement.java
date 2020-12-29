@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication(exclude = {JerseyAutoConfiguration.class, FlywayAutoConfiguration.class})
 //@EnableEurekaClient
-@ComponentScan(basePackages = {"com.nms.*"})
+@ComponentScan(basePackages = {"com.nms.*","com.nms"})
 public class NumberTypeManagement {
 
     public static void main(String[] args) {

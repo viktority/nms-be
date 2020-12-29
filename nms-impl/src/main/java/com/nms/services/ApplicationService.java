@@ -123,7 +123,7 @@ public class ApplicationService {
 
     private Application deconstructEntity(com.nms.entities.Application application) {
         Application map = mapper.map(application, Application.class);
-        map.setApprovalStage(mapper.map(application.getApprovalStage(), ApprovalStages.class));
+        map.setApprovalStage(mapper.map(application.getApprovalStage(), ApprovalStage.class));
         map.setStageFour(mapper.map(application.getStageFour(), StageFour.class));
         map.setStageOne(mapper.map(application.getStageOne(), StageOne.class));
         map.setStageThree(mapper.map(application.getStageThree(), StageThree.class));

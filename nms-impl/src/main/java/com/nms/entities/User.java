@@ -33,10 +33,6 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Role role;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getUserId() {
         return userId;
     }
