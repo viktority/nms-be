@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,15 @@ public class NumbertypeService {
     public NumberType addNumberType(NumberTypeDto body) {
         try {
             List<Integer> approvalStageIds = body.getListOfApprovalStageIds();
-            List<com.nms.entities.ApprovalStages> collect = approvalStageIds.stream().map(this::apply).collect(Collectors.toList());
+            List<com.nms.entities.ApprovalStages> collect = approvalStageIds.stream().map(this::apply).filter(Objects::nonNull).collect(Collectors.toList());
+            if (collect.isEmpty()) {
+                return null;
+            }
             com.nms.entities.NumberType map = mapper.map(body, com.nms.entities.NumberType.class);
             map.setListOfApprovalStages(collect);
             com.nms.entities.NumberType save = numberTypeRepository.save(map);
-            return (save != null) ? mapper.map(save, NumberType.class) : null;
+            return mapper.map(save, NumberType.class);
         } catch (Exception ex) {
-            ex.printStackTrace();
             return null;
         }
     }
@@ -87,8 +90,6 @@ public class NumbertypeService {
 
     private com.nms.entities.ApprovalStages apply(Integer id) {
         Optional<com.nms.entities.ApprovalStages> byId = approvalStageRepository.findById(id.longValue());
-        if (!byId.isPresent()) {
-        }
-        return byId.get();
+        return byId.orElse(null);
     }
 }

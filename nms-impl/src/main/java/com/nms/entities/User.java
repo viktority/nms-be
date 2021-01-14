@@ -30,7 +30,7 @@ public class User implements Serializable {
     private boolean active;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Role role;
 
     public String getUserId() {

@@ -15,16 +15,16 @@ public class Role implements Serializable {
     private long id;
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.DETACH)
     private User createdBy;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.DETACH)
     private User updatedBy;
 
 //    @ManyToMany(mappedBy = "roles")
 //    private Collection<Users> users;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     @JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
 

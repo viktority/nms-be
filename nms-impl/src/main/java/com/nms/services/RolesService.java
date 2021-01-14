@@ -47,17 +47,23 @@ public class RolesService {
     }
 
     public boolean deleteRole(Integer roleId) {
-        List<User> users = usersRepository.findByRoleId(roleId.longValue());
-        users.forEach(user -> {
-            user.setRole(null);
-            usersRepository.save(user);
-        });
-        try {
-            roleRepository.deleteById(roleId.longValue());
-            return true;
-        } catch (Exception ex) {
-            return false;
+        Optional<com.nms.entities.Role> byId = roleRepository.findById(roleId.longValue());
+        if (byId.isPresent()) {
+            com.nms.entities.Role role = byId.get();
+
+            List<User> users = usersRepository.findByRoleId(role.getId());
+            users.forEach(user -> {
+                user.setRole(null);
+                usersRepository.save(user);
+            });
+            try {
+                roleRepository.delete(role);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
         }
+        return false;
     }
 
     public Role getRoleByName(String roleName) {
