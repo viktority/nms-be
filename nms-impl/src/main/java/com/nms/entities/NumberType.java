@@ -15,7 +15,7 @@ public class NumberType {
     private Integer minNumDigit = null;
     private Integer maxNumDigit = null;
 
-    @OneToMany
+    @ManyToMany
     private List<ApprovalStages> listOfApprovalStages = null;
 
     public String getName() {

@@ -38,6 +38,7 @@ public class NumbertypeService {
             com.nms.entities.NumberType save = numberTypeRepository.save(map);
             return mapper.map(save, NumberType.class);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }
