@@ -14,6 +14,8 @@ public class UserDto {
     @Email
     private String email;
 
+    private long departmentId;
+
     public String getPassword() {
         return password;
     }
@@ -28,5 +30,13 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(long departmentId) {
+        this.departmentId = departmentId;
     }
 }

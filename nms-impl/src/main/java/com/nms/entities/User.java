@@ -29,6 +29,9 @@ public class User implements Serializable {
 
     private boolean active;
 
+    @ManyToOne
+    private Department department;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Role role;
@@ -98,5 +101,13 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

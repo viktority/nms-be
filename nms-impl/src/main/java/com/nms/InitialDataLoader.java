@@ -1,14 +1,8 @@
 package com.nms;
 
 
-import com.nms.entities.ApprovalStages;
-import com.nms.entities.Privilege;
-import com.nms.entities.Role;
-import com.nms.entities.User;
-import com.nms.repositories.ApprovalStageRepository;
-import com.nms.repositories.PrivilegeRepository;
-import com.nms.repositories.RoleRepository;
-import com.nms.repositories.UsersRepository;
+import com.nms.entities.*;
+import com.nms.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +31,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     ApprovalStageRepository approvalStageRepository;
+
+    @Autowired
+    TypeRepository typeRepository;
+
+    @Autowired
+    SpecificTypeRepository specificTypeRepository;
 
     @Override
     @Transactional
@@ -97,6 +97,22 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         ApprovalStages stage1 = new ApprovalStages("APPROVAL_STAGE_TWO");
         approvalStageRepository.save(stage);
         approvalStageRepository.save(stage1);
+
+        Type shortCode = new Type("ShortCodes");
+        Type nationalNumber = new Type("NationalNumber");
+        Type iscp = new Type("ISCP");
+
+        Type save = typeRepository.save(shortCode);
+        Type save1 = typeRepository.save(nationalNumber);
+        Type save2 = typeRepository.save(iscp);
+
+        SpecificType threeDigits = new SpecificType("ThreeDigits", save);
+        SpecificType fourDigits = new SpecificType("FourDigits", save);
+        SpecificType fiveDigits = new SpecificType("FiveDigits", save);
+
+        specificTypeRepository.save(threeDigits);
+        specificTypeRepository.save(fourDigits);
+        specificTypeRepository.save(fiveDigits);
     }
 
     @Transactional

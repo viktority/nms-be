@@ -1,11 +1,13 @@
 package com.nms.services;
 
 
+import com.nms.entities.Department;
 import com.nms.entities.Privilege;
 import com.nms.entities.Role;
 import com.nms.entities.User;
 import com.nms.models.ResponseModel;
 import com.nms.models.UserDto;
+import com.nms.repositories.DepartmentRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
 import com.nms.utils.Utils;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -40,16 +43,17 @@ public class UsersService implements UserDetailsService {
     Environment environment;
     RoleRepository roleRepository;
     Utils util;
-
+    DepartmentRepository departmentRepository;
 
     @Autowired
     public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                        Environment environment, RoleRepository roleRepository, Utils util) {
+                        Environment environment, RoleRepository roleRepository, Utils util, DepartmentRepository departmentRepository) {
         this.usersRepository = usersRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.environment = environment;
         this.roleRepository = roleRepository;
         this.util = util;
+        this.departmentRepository = departmentRepository;
     }
 
 
@@ -66,6 +70,12 @@ public class UsersService implements UserDetailsService {
         userEntity.setUserId(UUID.randomUUID().toString());
         userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
         userEntity.setRole(roleRepository.findByName("ROLE_ADMIN"));
+        Optional<Department> byId = departmentRepository.findById(userDetails.getDepartmentId());
+        Department department = null;
+        if (byId.isPresent()) {
+            department = byId.get();
+        }
+        userEntity.setDepartment(department);
         userEntity.setTokenExpired(false);
         userEntity.setEnabled(true);
         Long expTime = Long.parseLong(environment.getProperty("email.verification.token.expiration_time"));
