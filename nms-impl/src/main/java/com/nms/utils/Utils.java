@@ -48,7 +48,5 @@ public class Utils {
         } catch (Exception ex) {
             return null;
         }
-
-
     }
 }
