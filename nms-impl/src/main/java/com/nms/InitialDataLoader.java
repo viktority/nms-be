@@ -98,9 +98,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         approvalStageRepository.save(stage);
         approvalStageRepository.save(stage1);
 
-        Type shortCode = new Type("ShortCodes");
-        Type nationalNumber = new Type("NationalNumber");
-        Type iscp = new Type("ISCP");
+        Type shortCode = new Type("ShortCodes",3,5);
+        Type nationalNumber = new Type("NationalNumber", 10, 10);
+        Type iscp = new Type("ISCP", 7,7);
 
         Type save = typeRepository.save(shortCode);
         Type save1 = typeRepository.save(nationalNumber);

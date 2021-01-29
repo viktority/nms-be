@@ -21,11 +21,12 @@ spring:
 
     #MySQL
   datasource:
-    #url: jdbc:mysql://localhost:3306/nms?serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/nms?serverTimezone=UTC
     url: jdbc:mysql://nms-db.c1pvfxk9qlbf.us-east-2.rds.amazonaws.com:3306/nms?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
-    #username: root
+#    username: root
+#    password:
     password: password
   jpa:
     demographics-platform: org.hibernate.dialect.MySQL5InnoDBDialect
