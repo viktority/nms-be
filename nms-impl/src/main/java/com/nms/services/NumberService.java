@@ -3,6 +3,7 @@ package com.nms.services;
 import com.nms.entities.SpecificType;
 import com.nms.entities.Type;
 import com.nms.models.Number;
+import com.nms.models.NumberBlock;
 import com.nms.models.NumberDto;
 import com.nms.repositories.NumberRepository;
 import com.nms.repositories.SpecificTypeRepository;
@@ -95,5 +96,38 @@ public class NumberService {
         map.setType(number.getType().getType());
         map.setSpecificType(number.getSpecificType().getSpecificType());
         return map;
+    }
+
+    public List<NumberBlock> fetchNumberBlocks(int id){
+        Type numberType = typeRepository.findById(id).orElse(null);
+        List<com.nms.entities.Number> soldNumbers = numberRepository.findByType(numberType);
+        Long startDigit = getLimitDigit(numberType.getMinDigit(), "min");
+        Long endDigit = getLimitDigit(numberType.getMaxDigit(), "max");
+        List<NumberBlock> numberBlocks = generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
+        return numberBlocks;
+    }
+
+    public Long getLimitDigit(int digit, String minMax){
+        String x = minMax.equals("min")? "1" : "9";
+        for (int i = 1; i < digit; i++) {
+            x += minMax.equals("min")? 0 : 9;;
+        }
+        return Long.valueOf(x);
+    }
+
+    public List<NumberBlock> generateNumberBlock(List<com.nms.entities.Number> soldNumbers, Long startDigit, Long endDigit, int numberType){
+        List<NumberBlock> numberBlocks = new ArrayList<>();
+        long currentMin = startDigit;
+        for (com.nms.entities.Number n: soldNumbers) {
+            if(currentMin < n.getStart()){
+                numberBlocks.add(new NumberBlock(currentMin, n.getStart() - 1, numberType));
+            }
+            currentMin = n.getEnd() + 1;
+        }
+        // Add endBlock
+        if(currentMin < endDigit){
+            numberBlocks.add(new NumberBlock(currentMin, endDigit, numberType));
+        }
+        return numberBlocks;
     }
 }

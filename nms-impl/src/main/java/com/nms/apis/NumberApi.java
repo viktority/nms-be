@@ -7,6 +7,7 @@ package com.nms.apis;
 
 
 import com.nms.models.Number;
+import com.nms.models.NumberBlock;
 import com.nms.models.NumberDto;
 import com.nms.models.ResponseModel;
 import io.swagger.v3.oas.annotations.Operation;
@@ -84,6 +85,17 @@ public interface NumberApi {
         consumes = { "application/json" }, 
         method = RequestMethod.PUT)
     ResponseEntity<Number> updateNumberById(@Parameter(in = ParameterIn.PATH, description = "The NumberId used to update the service information", required=true, schema=@Schema()) @PathVariable("numberId") Long numberId, @Parameter(in = ParameterIn.DEFAULT, description = "The Application to update.", required=true, schema=@Schema()) @Valid @RequestBody NumberDto body);
+
+
+
+    @Operation(summary = "Fetch available Number Blocks", description = "Pass in the numbr type ID", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/{typeId}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableNumberBlocks( @PathVariable("typeId") int typeId);
 
 }
 

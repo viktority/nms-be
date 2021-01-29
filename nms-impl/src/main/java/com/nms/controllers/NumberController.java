@@ -3,6 +3,7 @@ package com.nms.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nms.apis.NumberApi;
 import com.nms.models.Number;
+import com.nms.models.NumberBlock;
 import com.nms.models.NumberDto;
 import com.nms.models.ResponseModel;
 import com.nms.models.helper.Response;
@@ -79,4 +80,12 @@ public class NumberController implements NumberApi {
         Number charge = service.updateNumberById(numberId, body);
         return new ResponseEntity(charge == null ? ResponseModel.getModel(Response.ERROR) : charge, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<List<NumberBlock>> availableNumberBlocks(int typeId) {
+        String accept = request.getHeader("Accept");
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(typeId);
+        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+    }
+
 }
