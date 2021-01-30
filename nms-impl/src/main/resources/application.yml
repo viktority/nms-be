@@ -6,6 +6,18 @@ spring:
     name: NUMBER-MANAGEMENT-SERVICE
   zipkin:
     base-url: http://127.0.0.1:9411/
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: nmsystem85@gmail.com
+    password: numberManagementSystem
+    properties:
+      "mail.smtp.starttls.enable": true
+      "mail.transport.protocol": smtp
+      "mail.smtp.auth": true
+      "mail.smtp.ssl.enable": true
+      "debug": true
+
 
     #MySQL
   datasource:
