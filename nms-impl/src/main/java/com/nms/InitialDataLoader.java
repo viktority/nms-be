@@ -100,7 +100,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
         Type shortCode = new Type("ShortCodes",3,5);
         Type nationalNumber = new Type("NationalNumber", 10, 10);
-        Type iscp = new Type("ISCP", 7,7);
+        Type iscp = new Type("ISCP", 5,5);
 
         Type save = typeRepository.save(shortCode);
         Type save1 = typeRepository.save(nationalNumber);
