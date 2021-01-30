@@ -88,14 +88,24 @@ public interface NumberApi {
 
 
 
-    @Operation(summary = "Fetch available Number Blocks", description = "Pass in the numbr type ID", tags={ "Available Number Blocks" })
+    @Operation(summary = "Fetch available Shortcode Number Blocks", description = "Fetch available Shortcode Number Blocks", tags={ "Available Number Blocks" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
             @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
-    @RequestMapping(value = "/number/numberblocks/{typeId}",
+    @RequestMapping(value = "/number/numberblocks/shortcodes",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<NumberBlock>> availableNumberBlocks( @PathVariable("typeId") int typeId);
+    ResponseEntity<List<NumberBlock>> availableShortcodeBlocks();
+
+
+    @Operation(summary = "Fetch available ISCP Number Blocks", description = "Fetch available ISCP Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/iscp",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableISCPBlocks();
 
 }
 
