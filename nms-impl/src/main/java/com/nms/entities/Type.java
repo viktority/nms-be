@@ -1,17 +1,17 @@
 package com.nms.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Type implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -21,10 +21,6 @@ public class Type implements Serializable {
     private String type;
     private Integer minDigit;
     private Integer maxDigit;
-
-    public Type(String type, Integer minDigit, Integer maxDigit) {
-        this.type = type;
-        this.minDigit = minDigit;
-        this.maxDigit = maxDigit;
-    }
+    @ManyToMany
+    private List<ApprovalStages> listOfApprovalStages;
 }
