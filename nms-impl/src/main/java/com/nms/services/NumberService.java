@@ -100,7 +100,7 @@ public class NumberService {
 
     public List<NumberBlock> fetchNumberBlocks(int id){
         Type numberType = typeRepository.findById(id).orElse(null);
-        List<com.nms.entities.Number> soldNumbers = numberRepository.findByType(numberType);
+        List<com.nms.entities.Number> soldNumbers = numberRepository.findByTypeOrderByStartAsc(numberType);
         Long startDigit = getLimitDigit(numberType.getMinDigit(), "min");
         Long endDigit = getLimitDigit(numberType.getMaxDigit(), "max");
         List<NumberBlock> numberBlocks = generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());

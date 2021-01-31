@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface NumberRepository extends CrudRepository<Number, Long> {
 
-    List<Number> findByType(Type numberType);
+    List<Number> findByTypeOrderByStartAsc(Type numberType);
 }

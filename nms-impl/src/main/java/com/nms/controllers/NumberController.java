@@ -20,6 +20,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nms.utils.Constants.ISCP_ID;
+import static com.nms.utils.Constants.SHORTCODE_ID;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T11:45:01.773Z[GMT]")
 @RestController
 public class NumberController implements NumberApi {
@@ -82,9 +85,16 @@ public class NumberController implements NumberApi {
     }
 
     @Override
-    public ResponseEntity<List<NumberBlock>> availableNumberBlocks(int typeId) {
+    public ResponseEntity<List<NumberBlock>> availableShortcodeBlocks() {
         String accept = request.getHeader("Accept");
-        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(typeId);
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(SHORTCODE_ID);
+        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<NumberBlock>> availableISCPBlocks() {
+        String accept = request.getHeader("Accept");
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(ISCP_ID);
         return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
     }
 
