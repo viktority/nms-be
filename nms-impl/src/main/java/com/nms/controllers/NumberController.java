@@ -2,11 +2,10 @@ package com.nms.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nms.apis.NumberApi;
+import com.nms.models.*;
 import com.nms.models.Number;
-import com.nms.models.NumberBlock;
-import com.nms.models.NumberDto;
-import com.nms.models.ResponseModel;
 import com.nms.models.helper.Response;
+import com.nms.repositories.SpecificTypeRepository;
 import com.nms.services.NumberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +41,9 @@ public class NumberController implements NumberApi {
 
     @Autowired
     NumberService service;
+
+    @Autowired
+    SpecificTypeRepository specificTypeRepository;
 
     @Override
     public ResponseEntity<Number> addNumber(@Valid NumberDto body) {
@@ -85,17 +87,35 @@ public class NumberController implements NumberApi {
     }
 
     @Override
-    public ResponseEntity<List<NumberBlock>> availableShortcodeBlocks() {
+    public ResponseEntity<List<NumberBlock>> availableShortcodeBlocks3() {
         String accept = request.getHeader("Accept");
-        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(SHORTCODE_ID);
+        com.nms.entities.SpecificType s = specificTypeRepository.findBySpecificType("3");
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocksBySpecificType(s);
+        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<NumberBlock>> availableShortcodeBlocks4() {
+        String accept = request.getHeader("Accept");
+        com.nms.entities.SpecificType s = specificTypeRepository.findBySpecificType("4");
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocksBySpecificType(s);
+        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<NumberBlock>> availableShortcodeBlocks5() {
+        String accept = request.getHeader("Accept");
+        com.nms.entities.SpecificType s = specificTypeRepository.findBySpecificType("5");
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocksBySpecificType(s);
         return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<NumberBlock>> availableISCPBlocks() {
         String accept = request.getHeader("Accept");
-        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(ISCP_ID);
-        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+//        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(ISCP_ID);
+//        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+        return null;
     }
 
 }

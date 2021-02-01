@@ -1,9 +1,16 @@
 package com.nms.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SpecificType implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -14,36 +21,13 @@ public class SpecificType implements Serializable {
     private String specificType;
     @ManyToOne
     private Type type;
+    private Integer minDigit;
+    private Integer maxDigit;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getSpecificType() {
-        return specificType;
-    }
-
-    public void setSpecificType(String specificType) {
-        this.specificType = specificType;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public SpecificType(String specificType, Type type) {
+    public SpecificType(String specificType, Type type, Integer minDigit, Integer maxDigit) {
         this.specificType = specificType;
         this.type = type;
-    }
-
-    public SpecificType() {
+        this.minDigit = minDigit;
+        this.maxDigit = maxDigit;
     }
 }

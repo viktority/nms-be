@@ -26,4 +26,14 @@ public class SpecificTypeService {
         });
         return list;
     }
+
+
+    public List<SpecificType> allSpecificType() {
+        List<SpecificType> list = new ArrayList<>();
+        specificTypeRepository.findAll().forEach(as -> {
+            SpecificType map = mapper.map(as, SpecificType.class);
+            list.add(map);
+        });
+        return list;
+    }
 }

@@ -54,4 +54,13 @@ public class TypesController implements TypesApi {
         List<SpecificType> numbers = specificTypeService.getSpecificTypesByTypeId(typeId);
         return new ResponseEntity<List<SpecificType>>(numbers == null ? new ArrayList<>() : numbers, HttpStatus.OK);
     }
+
+
+    @Override
+    public ResponseEntity<List<SpecificType>> getAllSpecificTypes() {
+        String accept = request.getHeader("Accept");
+        //  if (accept != null && accept.contains("application/json")) {
+        List<SpecificType> numbers = specificTypeService.allSpecificType();
+        return new ResponseEntity<List<SpecificType>>( numbers, HttpStatus.OK);
+    }
 }

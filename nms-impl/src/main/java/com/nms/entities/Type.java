@@ -23,4 +23,10 @@ public class Type implements Serializable {
     private Integer maxDigit;
     @ManyToMany
     private List<ApprovalStages> listOfApprovalStages;
+
+    public Type(String type, Integer minDigit, Integer maxDigit) {
+        this.type = type;
+        this.minDigit = minDigit;
+        this.maxDigit = maxDigit;
+    }
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface SpecificTypeRepository extends CrudRepository<SpecificType, Integer> {
 
     Iterable<Object> findByTypeId(Integer typeId);
+
+   SpecificType findBySpecificType(String s);
 }
