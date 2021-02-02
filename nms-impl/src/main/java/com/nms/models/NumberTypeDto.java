@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * NumberTypeDto
@@ -18,7 +17,7 @@ import java.util.Objects;
 
 public class NumberTypeDto   {
   @JsonProperty("name")
-  private String name = null;
+  private String type = null;
 
   @JsonProperty("min_num_digit")
   private Integer minNumDigit = null;
@@ -30,9 +29,17 @@ public class NumberTypeDto   {
   @Valid
   private List<Integer> listOfApprovalStageIds = null;
 
-  public NumberTypeDto name(String name) {
-    this.name = name;
+  public NumberTypeDto name(String type) {
+    this.type = type;
     return this;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   /**
@@ -41,13 +48,7 @@ public class NumberTypeDto   {
    **/
   @Schema(example = "name", description = "")
   
-    public String getName() {
-    return name;
-  }
 
-  public void setName(String name) {
-    this.name = name;
-  }
 
   public NumberTypeDto minNumDigit(Integer minNumDigit) {
     this.minNumDigit = minNumDigit;
@@ -116,31 +117,11 @@ public class NumberTypeDto   {
 
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    NumberTypeDto numberTypeDto = (NumberTypeDto) o;
-    return Objects.equals(this.name, numberTypeDto.name) &&
-        Objects.equals(this.minNumDigit, numberTypeDto.minNumDigit) &&
-        Objects.equals(this.maxNumDigit, numberTypeDto.maxNumDigit) &&
-        Objects.equals(this.listOfApprovalStageIds, numberTypeDto.listOfApprovalStageIds);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, minNumDigit, maxNumDigit, listOfApprovalStageIds);
-  }
-
-  @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class NumberTypeDto {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    name: ").append(toIndentedString(type)).append("\n");
     sb.append("    minNumDigit: ").append(toIndentedString(minNumDigit)).append("\n");
     sb.append("    maxNumDigit: ").append(toIndentedString(maxNumDigit)).append("\n");
     sb.append("    listOfApprovalStageIds: ").append(toIndentedString(listOfApprovalStageIds)).append("\n");

@@ -2,8 +2,10 @@ package com.nms.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nms.apis.NumberApi;
-import com.nms.models.*;
 import com.nms.models.Number;
+import com.nms.models.NumberBlock;
+import com.nms.models.NumberDto;
+import com.nms.models.ResponseModel;
 import com.nms.models.helper.Response;
 import com.nms.repositories.SpecificTypeRepository;
 import com.nms.services.NumberService;
@@ -18,9 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.nms.utils.Constants.ISCP_ID;
-import static com.nms.utils.Constants.SHORTCODE_ID;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T11:45:01.773Z[GMT]")
 @RestController

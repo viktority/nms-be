@@ -1,18 +1,41 @@
 package com.nms.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class SpecificType {
-    private static final long serialVersionUID = 1L;
 
     private Integer id;
     private String specificType;
     private Integer minDigit;
     private Integer maxDigit;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSpecificType() {
+        return specificType;
+    }
+
+    public void setSpecificType(String specificType) {
+        this.specificType = specificType;
+    }
+
+    public Integer getMinDigit() {
+        return minDigit;
+    }
+
+    public void setMinDigit(Integer minDigit) {
+        this.minDigit = minDigit;
+    }
+
+    public Integer getMaxDigit() {
+        return maxDigit;
+    }
+
+    public void setMaxDigit(Integer maxDigit) {
+        this.maxDigit = maxDigit;
+    }
 }

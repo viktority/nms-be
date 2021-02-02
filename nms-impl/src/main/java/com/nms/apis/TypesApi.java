@@ -6,8 +6,7 @@
 package com.nms.apis;
 
 
-import com.nms.models.SpecificType;
-import com.nms.models.Type;
+import com.nms.models.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -18,9 +17,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-30T11:45:01.773Z[GMT]")
@@ -52,10 +53,104 @@ public interface TypesApi {
             @ApiResponse(responseCode = "200", description = "Data retrieved.", content = @Content(array = @ArraySchema(schema = @Schema(implementation = SpecificType.class)))),
 
             @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
-    @RequestMapping(value = "/types/allspecifictypes",
+    @RequestMapping(value = "/types/specifictypes",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<List<SpecificType>> getAllSpecificTypes();
+
+
+    @Operation(summary = "adds new item", description = "Adds an item to the system", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "item created"),
+
+            @ApiResponse(responseCode = "400", description = "invalid input, object invalid"),
+
+            @ApiResponse(responseCode = "409", description = "an existing item already exists")})
+    @RequestMapping(value = "/types",
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    ResponseEntity<Type> addType(@Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema = @Schema()) @Valid @RequestBody NumberTypeDto body);
+
+
+    @Operation(summary = "Delete number type by id", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Deleted."),
+
+            @ApiResponse(responseCode = "400", description = "Unable to delete service.")})
+    @RequestMapping(value = "/type/{typeId}",
+            method = RequestMethod.DELETE)
+    ResponseEntity<ResponseModel> deleteTypeById(@Parameter(in = ParameterIn.PATH, description = "The Subject Id.", required = true, schema = @Schema()) @PathVariable("typeId") Integer typeId);
+
+    @Operation(summary = "searches inventory", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "search results matching criteria", content = @Content(schema = @Schema(implementation = Type.class))),
+
+            @ApiResponse(responseCode = "400", description = "bad input parameter")})
+    @RequestMapping(value = "/type/{typeId}",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<Type> getTypeById(@Parameter(in = ParameterIn.PATH, description = "The typeId used to update the service information", required = true, schema = @Schema()) @PathVariable("typeId") Integer typeId);
+
+
+    @Operation(summary = "Update number type by Id", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Number type updated.", content = @Content(schema = @Schema(implementation = Type.class))),
+
+            @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
+    @RequestMapping(value = "/type/{typeId}",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.PUT)
+    ResponseEntity<Type> updateTypeById(@Parameter(in = ParameterIn.PATH, description = "The typeId used to update the service information", required = true, schema = @Schema()) @PathVariable("typeId") Integer typeId, @Parameter(in = ParameterIn.DEFAULT, description = "The subject to update.", required = true, schema = @Schema()) @Valid @RequestBody NumberTypeDto body);
+
+
+    //Specific types
+
+
+    @Operation(summary = "adds new item", description = "Adds an item to the system", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "item created"),
+
+            @ApiResponse(responseCode = "400", description = "invalid input, object invalid"),
+
+            @ApiResponse(responseCode = "409", description = "an existing item already exists")})
+    @RequestMapping(value = "/types/{typeId}/specifictypes",
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    ResponseEntity<SpecificType> addSpecificType(@Parameter(in = ParameterIn.PATH, description = "The Type Id.", required = true, schema = @Schema()) @PathVariable("typeId") Integer typeId, @Parameter(in = ParameterIn.DEFAULT, description = "Inventory item to add", schema = @Schema()) @Valid @RequestBody SpecificType body);
+
+
+    @Operation(summary = "Delete number type by id", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Deleted."),
+
+            @ApiResponse(responseCode = "400", description = "Unable to delete service.")})
+    @RequestMapping(value = "/types/specifictypes/{specificTypeId}",
+            method = RequestMethod.DELETE)
+    ResponseEntity<ResponseModel> deleteSpecificTypeById(@Parameter(in = ParameterIn.PATH, description = "The Subject Id.", required = true, schema = @Schema()) @PathVariable("specificTypeId") Integer specificTypeId);
+
+
+    @Operation(summary = "searches inventory", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "search results matching criteria", content = @Content(schema = @Schema(implementation = NumberType.class))),
+
+            @ApiResponse(responseCode = "400", description = "bad input parameter")})
+    @RequestMapping(value = "/types/specifictypes/{specificTypeId}",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<SpecificType> getSpecificTypeById(@Parameter(in = ParameterIn.PATH, description = "The numberTypeId used to update the service information", required = true, schema = @Schema()) @PathVariable("specificTypeId") Integer specificTypeId);
+
+
+    @Operation(summary = "Update number type by Id", description = "", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Number type updated.", content = @Content(schema = @Schema(implementation = NumberType.class))),
+
+            @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
+    @RequestMapping(value = "/types/specifictypes/{specificTypeId}",
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.PUT)
+    ResponseEntity<SpecificType> updateSpecificTypeById(@Parameter(in = ParameterIn.PATH, description = "The numberTypeId used to update the service information", required = true, schema = @Schema()) @PathVariable("specificTypeId") Integer specificTypeId, @Parameter(in = ParameterIn.DEFAULT, description = "The subject to update.", required = true, schema = @Schema()) @Valid @RequestBody SpecificType body);
 
 }
 

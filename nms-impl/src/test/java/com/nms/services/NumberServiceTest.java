@@ -1,15 +1,8 @@
 package com.nms.services;
 
-import com.nms.entities.Number;
-import com.nms.models.NumberBlock;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class NumberServiceTest {
 
