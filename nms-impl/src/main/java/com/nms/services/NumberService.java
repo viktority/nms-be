@@ -98,14 +98,22 @@ public class NumberService {
         return map;
     }
 
-    public List<NumberBlock> fetchNumberBlocks(int id){
-        Type numberType = typeRepository.findById(id).orElse(null);
-        List<com.nms.entities.Number> soldNumbers = numberRepository.findByType(numberType);
-        Long startDigit = getLimitDigit(numberType.getMinDigit(), "min");
-        Long endDigit = getLimitDigit(numberType.getMaxDigit(), "max");
-        List<NumberBlock> numberBlocks = generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
-        return numberBlocks;
+    public List<NumberBlock> fetchNumberBlocksBySpecificType(SpecificType specificType){
+        Type numberType = specificType.getType();
+        List<com.nms.entities.Number> soldNumbers = numberRepository.findBySpecificTypeOrderByStartAsc(specificType);
+        Long startDigit = getLimitDigit(specificType.getMinDigit(), "min");
+        Long endDigit = getLimitDigit(specificType.getMaxDigit(), "max");
+        return generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
     }
+
+//    public List<NumberBlock> fetchNumberBlocks(int id){
+//        Type numberType = typeRepository.findById(id).orElse(null);
+//        List<com.nms.entities.Number> soldNumbers = numberRepository.findByTypeOrderByStartAsc(numberType);
+//        Long startDigit = getLimitDigit(numberType.getMinDigit(), "min");
+//        Long endDigit = getLimitDigit(numberType.getMaxDigit(), "max");
+//        List<NumberBlock> numberBlocks = generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
+//        return numberBlocks;
+//    }
 
     public Long getLimitDigit(int digit, String minMax){
         String x = minMax.equals("min")? "1" : "9";

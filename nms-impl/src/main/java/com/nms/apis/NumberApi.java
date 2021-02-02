@@ -88,14 +88,46 @@ public interface NumberApi {
 
 
 
-    @Operation(summary = "Fetch available Number Blocks", description = "Pass in the numbr type ID", tags={ "Available Number Blocks" })
+    @Operation(summary = "Fetch available 3 Digits Shortcode Number Blocks", description = "Fetch available Shortcode Number Blocks", tags={ "Available Number Blocks" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
             @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
-    @RequestMapping(value = "/number/numberblocks/{typeId}",
+    @RequestMapping(value = "/number/numberblocks/shortcodes3",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<List<NumberBlock>> availableNumberBlocks( @PathVariable("typeId") int typeId);
+    ResponseEntity<List<NumberBlock>> availableShortcodeBlocks3();
+
+
+
+    @Operation(summary = "Fetch available 4 Digits Shortcode Number Blocks", description = "Fetch available Shortcode Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/shortcodes4",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableShortcodeBlocks4();
+
+
+
+    @Operation(summary = "Fetch available 5 Digits Shortcode Number Blocks", description = "Fetch available Shortcode Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/shortcodes5",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableShortcodeBlocks5();
+
+
+    @Operation(summary = "Fetch available ISCP Number Blocks", description = "Fetch available ISCP Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/iscp",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableISCPBlocks();
 
 }
 

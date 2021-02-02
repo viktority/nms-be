@@ -46,5 +46,16 @@ public interface TypesApi {
             method = RequestMethod.GET)
     ResponseEntity<List<SpecificType>> getSpecificTypesByTypeId(@Parameter(in = ParameterIn.PATH, description = "The Type Id.", required = true, schema = @Schema()) @PathVariable("typeId") Integer typeId);
 
+
+    @Operation(summary = "Get All Specific Types", description = "Get All Specific Types", tags = {"Types Management"})
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Data retrieved.", content = @Content(array = @ArraySchema(schema = @Schema(implementation = SpecificType.class)))),
+
+            @ApiResponse(responseCode = "400", description = "invalid input, object invalid")})
+    @RequestMapping(value = "/types/allspecifictypes",
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<SpecificType>> getAllSpecificTypes();
+
 }
 
