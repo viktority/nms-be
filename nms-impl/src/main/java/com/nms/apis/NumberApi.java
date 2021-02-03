@@ -108,6 +108,15 @@ public interface NumberApi {
             method = RequestMethod.GET)
     ResponseEntity<List<NumberBlock>> availableShortcodeBlocks4();
 
+    @Operation(summary = "Search number range by specific type", description = "Search number range by specific type", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/search/{specificTypeId}/{startNo}/{endNo}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> searchNoByRange(@Parameter(in = ParameterIn.PATH, description = "The SpecificType Id.", required=true, schema=@Schema()) @PathVariable("specificTypeId") int specificTypeId, @PathVariable("startNo") int startNo, @PathVariable("endNo") int endNo);
+
 
 
     @Operation(summary = "Fetch available 5 Digits Shortcode Number Blocks", description = "Fetch available Shortcode Number Blocks", tags={ "Available Number Blocks" })

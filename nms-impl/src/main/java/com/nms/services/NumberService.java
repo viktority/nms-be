@@ -106,6 +106,14 @@ public class NumberService {
         return generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
     }
 
+    public List<NumberBlock> fetchNumberBlocksByRange(SpecificType specificType, int startNo, int endNo){
+        Type numberType = specificType.getType();
+        List<com.nms.entities.Number> soldNumbers = numberRepository.findBySpecificTypeOrderByStartAsc(specificType);
+        Long startDigit = getLimitDigit(startNo, "min");
+        Long endDigit = getLimitDigit(endNo, "max");
+        return generateNumberBlock(soldNumbers,startDigit,endDigit,numberType.getId());
+    }
+
 //    public List<NumberBlock> fetchNumberBlocks(int id){
 //        Type numberType = typeRepository.findById(id).orElse(null);
 //        List<com.nms.entities.Number> soldNumbers = numberRepository.findByTypeOrderByStartAsc(numberType);
