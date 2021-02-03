@@ -110,6 +110,14 @@ public class NumberController implements NumberApi {
     }
 
     @Override
+    public ResponseEntity<List<NumberBlock>> searchNoByRange(int specificTypeId, int startNo, int endNo) {
+        String accept = request.getHeader("Accept");
+        com.nms.entities.SpecificType s = specificTypeRepository.findById(specificTypeId).orElse(null);
+        List<NumberBlock> numberBlocks = service.fetchNumberBlocksByRange(s,startNo,endNo);
+        return new ResponseEntity<List<NumberBlock>>(numberBlocks, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<NumberBlock>> availableISCPBlocks() {
         String accept = request.getHeader("Accept");
 //        List<NumberBlock> numberBlocks = service.fetchNumberBlocks(ISCP_ID);
