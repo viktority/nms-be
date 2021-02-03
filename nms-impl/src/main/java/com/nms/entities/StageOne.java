@@ -16,6 +16,8 @@ public class StageOne {
     @GeneratedValue
     private Integer id = null;
 
+    private String representativeFullName;
+
     @OneToOne
     private User userId = null;
 
@@ -46,17 +48,12 @@ public class StageOne {
     @JsonProperty("correspondenceFax")
     private String correspondenceFax = null;
 
-    @JsonProperty("representativeAddress")
-    private String representativeAddress = null;
 
     @JsonProperty("representativeEmail")
     private String representativeEmail = null;
 
     @JsonProperty("representativeTelephone")
     private String representativeTelephone = null;
-
-    @JsonProperty("representativeFax")
-    private String representativeFax = null;
 
     @JsonProperty("serviceType")
     private String serviceType = null;
@@ -67,8 +64,8 @@ public class StageOne {
     @OneToOne
     private License license = null;
 
-    @OneToOne
-    private License otherLicense = null;
+    @ElementCollection
+    private List<String> otherLicense = null;
 
     @JsonProperty("licenseType")
     private String licenseType = null;
@@ -173,13 +170,6 @@ public class StageOne {
         this.correspondenceFax = correspondenceFax;
     }
 
-    public String getRepresentativeAddress() {
-        return representativeAddress;
-    }
-
-    public void setRepresentativeAddress(String representativeAddress) {
-        this.representativeAddress = representativeAddress;
-    }
 
     public String getRepresentativeEmail() {
         return representativeEmail;
@@ -195,14 +185,6 @@ public class StageOne {
 
     public void setRepresentativeTelephone(String representativeTelephone) {
         this.representativeTelephone = representativeTelephone;
-    }
-
-    public String getRepresentativeFax() {
-        return representativeFax;
-    }
-
-    public void setRepresentativeFax(String representativeFax) {
-        this.representativeFax = representativeFax;
     }
 
     public String getServiceType() {
@@ -229,11 +211,19 @@ public class StageOne {
         this.license = license;
     }
 
-    public License getOtherLicense() {
+    public String getRepresentativeFullName() {
+        return representativeFullName;
+    }
+
+    public void setRepresentativeFullName(String representativeFullName) {
+        this.representativeFullName = representativeFullName;
+    }
+
+    public List<String> getOtherLicense() {
         return otherLicense;
     }
 
-    public void setOtherLicense(License otherLicense) {
+    public void setOtherLicense(List<String> otherLicense) {
         this.otherLicense = otherLicense;
     }
 

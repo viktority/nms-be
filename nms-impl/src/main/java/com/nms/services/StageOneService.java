@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StageOneService {
@@ -40,13 +41,6 @@ public class StageOneService {
                 Optional<License> b1 = licenseRepository.findById(licenseId.longValue());
                 if (byId.isPresent()) {
                     map.setLicense(b1.get());
-                }
-            }
-            Integer otherLicense = body.getOtherLicense();
-            if (otherLicense != null && otherLicense > 0) {
-                Optional<License> b2 = licenseRepository.findById(otherLicense.longValue());
-                if (byId.isPresent()) {
-                    map.setOtherLicense(b2.get());
                 }
             }
 
@@ -89,13 +83,6 @@ public class StageOneService {
                 map.setLicense(null);
             }
         }
-        Integer otherLicense = body.getOtherLicense();
-        if (otherLicense != null && otherLicense > 0) {
-            Optional<License> byId = licenseRepository.findById(otherLicense.longValue());
-            if (byId.isPresent()) {
-                map.setOtherLicense(byId.get());
-            }
-        }
         map.setUserId(usersRepository.findByUserId(body.getUserId()));
         com.nms.entities.StageOne save = repository.save(map);
         return save != null ? mapper.map(save, StageOne.class) : null;
@@ -109,8 +96,11 @@ public class StageOneService {
 
         if (a.getLicense() != null)
             map.setLicenseId(a.getLicense().getId().intValue());
-        if (a.getOtherLicense() != null)
-            map.setOtherLicense(a.getOtherLicense().getId().intValue());
+        if (a.getOtherLicense() != null && !a.getOtherLicense().isEmpty()) {
+            List<String> collect = new ArrayList<>(a.getOtherLicense());
+            map.setOtherLicense(collect);
+        }
+
         map.setPreviousLicense(a.getPreviousLicense());
         User u = a.getUserId();
         if (u != null)
