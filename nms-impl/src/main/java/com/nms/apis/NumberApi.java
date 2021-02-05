@@ -138,5 +138,26 @@ public interface NumberApi {
             method = RequestMethod.GET)
     ResponseEntity<List<NumberBlock>> availableISCPBlocks();
 
+
+
+    @Operation(summary = "Fetch available C Number Blocks", description = "Fetch available GSM Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/gsm",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableGSMBlocks();
+
+
+    @Operation(summary = "Fetch available Land Number Blocks", description = "Fetch available Land Number Blocks", tags={ "Available Number Blocks" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Application retrieved.", content = @Content(schema = @Schema(implementation = NumberBlock.class))),
+            @ApiResponse(responseCode = "400", description = "invalid type, object invalid") })
+    @RequestMapping(value = "/number/numberblocks/land",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<NumberBlock>> availableLandBlocks();
+
 }
 

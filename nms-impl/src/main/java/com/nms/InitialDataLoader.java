@@ -102,20 +102,24 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         Type nationalNumber = new Type("NationalNumber", 10, 10);
         Type iscp = new Type("ISCP", 5,5);
 
-        Type save = typeRepository.save(shortCode);
-        Type save1 = typeRepository.save(nationalNumber);
-        Type save2 = typeRepository.save(iscp);
+        Type shortcode = typeRepository.save(shortCode);
+        Type national = typeRepository.save(nationalNumber);
+        Type isc = typeRepository.save(iscp);
 
-        SpecificType threeDigits = new SpecificType("3", save, 3,3);
-        SpecificType fourDigits = new SpecificType("4", save,4,4);
-        SpecificType fiveDigits = new SpecificType("5", save,5,5);
-//        SpecificType fiveDigitsISCP = new SpecificType("5", save2,5,5);
+        SpecificType sc1 = new SpecificType("3", shortcode, 3,3);
+        SpecificType sc2 = new SpecificType("4", shortcode,4,4);
+        SpecificType sc3 = new SpecificType("5", shortcode,5,5);
+        SpecificType nn1 = new SpecificType("Land", national,8,8);
+        SpecificType nn2 = new SpecificType("GSM", national,11,11);
+        SpecificType fiveDigitsISCP = new SpecificType("ISCP", isc,5,5);
 
 
-        specificTypeRepository.save(threeDigits);
-        specificTypeRepository.save(fourDigits);
-        specificTypeRepository.save(fiveDigits);
-//        specificTypeRepository.save(fiveDigitsISCP);
+        specificTypeRepository.save(sc1);
+        specificTypeRepository.save(sc2);
+        specificTypeRepository.save(sc3);
+        specificTypeRepository.save(fiveDigitsISCP);
+        specificTypeRepository.save(nn1);
+        specificTypeRepository.save(nn2);
 
     }
 
