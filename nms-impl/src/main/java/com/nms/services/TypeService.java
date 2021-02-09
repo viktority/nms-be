@@ -1,6 +1,7 @@
 package com.nms.services;
 
 
+import com.nms.models.ApprovalStage;
 import com.nms.models.NumberTypeDto;
 import com.nms.models.Type;
 import com.nms.repositories.ApprovalStageRepository;
@@ -45,7 +46,10 @@ public class TypeService {
             com.nms.entities.Type map = mapper.map(body, com.nms.entities.Type.class);
             map.setListOfApprovalStages(collect);
             com.nms.entities.Type save = typeRepository.save(map);
-            return mapper.map(save, Type.class);
+            List<ApprovalStage> approvalStages = save.getListOfApprovalStages().stream().map(approvalStages1 -> mapper.map(approvalStages1, ApprovalStage.class)).collect(Collectors.toList());
+            Type map1 = mapper.map(save, Type.class);
+            map1.setApprovalStages(approvalStages);
+            return map1;
         } catch (Exception ex) {
             return null;
         }
@@ -68,6 +72,8 @@ public class TypeService {
         Iterable<com.nms.entities.Type> all = typeRepository.findAll();
         all.forEach(r -> {
             Type map = mapper.map(r, Type.class);
+            List<ApprovalStage> approvalStages = r.getListOfApprovalStages().stream().map(approvalStages1 -> mapper.map(approvalStages1, ApprovalStage.class)).collect(Collectors.toList());
+            map.setApprovalStages(approvalStages);
             nmst.add(map);
         });
         return nmst;
@@ -79,7 +85,10 @@ public class TypeService {
             return null;
         }
         mapper.getConfiguration().setAmbiguityIgnored(true);
-        return mapper.map(byId.get(), Type.class);
+        Type map = mapper.map(byId.get(), Type.class);
+        List<ApprovalStage> approvalStages = byId.get().getListOfApprovalStages().stream().map(approvalStages1 -> mapper.map(approvalStages1, ApprovalStage.class)).collect(Collectors.toList());
+        map.setApprovalStages(approvalStages);
+        return map;
     }
 
     public Type updateTypeById(Integer typeId, NumberTypeDto body) {
@@ -95,7 +104,11 @@ public class TypeService {
         com.nms.entities.Type save = typeRepository.save(map);
 
 
-        return mapper.map(save, Type.class);
+        Type map1 = mapper.map(save, Type.class);
+        List<ApprovalStage> approvalSta = save.getListOfApprovalStages().stream().map(approvalStages1 -> mapper.map(approvalStages1, ApprovalStage.class)).collect(Collectors.toList());
+
+        map1.setApprovalStages(approvalSta);
+        return map1;
     }
 
     private com.nms.entities.ApprovalStages apply(Integer id) {
