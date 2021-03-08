@@ -26,7 +26,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
     #username: root
-#    password:
     password: password
   jpa:
     demographics-platform: org.hibernate.dialect.MySQL5InnoDBDialect
