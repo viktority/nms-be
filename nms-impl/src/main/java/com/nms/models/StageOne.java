@@ -1,7 +1,6 @@
 package com.nms.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nms.entities.License;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.validation.annotation.Validated;
 
@@ -10,7 +9,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * StageOne

@@ -41,8 +41,8 @@ public class ApplicationStatusService {
         com.nms.entities.ApplicationStatus byName = applicationStatusRepository.findByName(applicationStatusName);
         if (byName != null) {
             ApplicationStatus map = mapper.map(byName, ApplicationStatus.class);
-            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getUserId());
-            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getUserId());
+            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;
@@ -52,8 +52,8 @@ public class ApplicationStatusService {
         List<ApplicationStatus> list = new ArrayList<>();
         applicationStatusRepository.findAll().forEach(as -> {
             ApplicationStatus map = mapper.map(as, ApplicationStatus.class);
-            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
-            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
+            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getAppUserId());
             list.add(map);
         });
         return list;
@@ -67,8 +67,8 @@ public class ApplicationStatusService {
             com.nms.entities.ApplicationStatus save = applicationStatusRepository.save(applicationStatus);
 
             ApplicationStatus map = mapper.map(save, ApplicationStatus.class);
-            map.setCreatedBy(applicationStatus.getCreatedBy() == null ? null : applicationStatus.getCreatedBy().getUserId());
-            map.setUpdatedBy(applicationStatus.getUpdatedBy() == null ? null : applicationStatus.getUpdatedBy().getUserId());
+            map.setCreatedBy(applicationStatus.getCreatedBy() == null ? null : applicationStatus.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(applicationStatus.getUpdatedBy() == null ? null : applicationStatus.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;

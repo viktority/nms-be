@@ -46,8 +46,8 @@ public class FeeService {
             com.nms.entities.Fee save = feeRepository.save(bp);
 
             Fee map = mapper.map(save, Fee.class);
-            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getUserId());
-            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getUserId());
+            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;
@@ -57,8 +57,8 @@ public class FeeService {
         List<Fee> list = new ArrayList<>();
         feeRepository.findAll().forEach(as -> {
             Fee map = mapper.map(as, Fee.class);
-            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
-            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
+            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getAppUserId());
             list.add(map);
         });
         return list;
@@ -68,8 +68,8 @@ public class FeeService {
         com.nms.entities.Fee byName = feeRepository.findByName(feeName);
         if (byName != null) {
             Fee map = mapper.map(byName, Fee.class);
-            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getUserId());
-            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getUserId());
+            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;

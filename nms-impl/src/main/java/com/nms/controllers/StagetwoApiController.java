@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,13 +44,15 @@ public class StagetwoApiController implements StagetwoApi {
         this.request = request;
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<StageTwo> addStageTwo(@Parameter(in = ParameterIn.DEFAULT, description = "Application to add", schema = @Schema()) @Valid @RequestBody StageTwo body) {
         String accept = request.getHeader("Accept");
         StageTwo created = service.addStageTwo(body);
-        if (created!=null) return new ResponseEntity<>(created, HttpStatus.CREATED);
+        if (created != null) return new ResponseEntity<>(created, HttpStatus.CREATED);
         return new ResponseEntity(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<ResponseModel> deleteStageTwonById(@Parameter(in = ParameterIn.PATH, description = "The Application Id.", required = true, schema = @Schema()) @PathVariable("stageTwoId") Long stageTwoId) {
         String accept = request.getHeader("Accept");
         boolean deleted = service.deleteStageTwoById(stageTwoId);
@@ -57,6 +60,7 @@ public class StagetwoApiController implements StagetwoApi {
         return new ResponseEntity<>(ResponseModel.getModel(Response.ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<List<StageTwo>> getStageTwo() {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -64,6 +68,7 @@ public class StagetwoApiController implements StagetwoApi {
         return new ResponseEntity<List<StageTwo>>(invoices == null ? new ArrayList<>() : invoices, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<StageTwo> getStageTwoById(@Parameter(in = ParameterIn.PATH, description = "The StageTwoId Id.", required = true, schema = @Schema()) @PathVariable("stageTwoId") Long stageTwoId) {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -72,6 +77,7 @@ public class StagetwoApiController implements StagetwoApi {
         return new ResponseEntity(invoice == null ? ResponseModel.getModel(Response.NOT_FOUND) : invoice, HttpStatus.OK);
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<StageTwo> updateStageTwoById(@Parameter(in = ParameterIn.PATH, description = "The StageTwoId used to update the service information", required = true, schema = @Schema()) @PathVariable("stageTwoId") Long stageTwoId, @Parameter(in = ParameterIn.DEFAULT, description = "The Application to update.", required = true, schema = @Schema()) @Valid @RequestBody StageTwo body) {
         String accept = request.getHeader("Accept");
         //    if (accept != null && accept.contains("application/json")) {

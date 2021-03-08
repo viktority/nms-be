@@ -10,9 +10,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Configuration
 public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -61,35 +59,36 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         List<Privilege> clientPrivileges = new ArrayList<>();
         clientPrivileges.add(readPrivilege);
 
-        Role role_super_admin = createRoleIfNotFound("ROLE_SUPER_ADMIN", superAdminPrivileges);
-        Role role_admin = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+      //  Role role_super_admin = createRoleIfNotFound("ROLE_SUPER_ADMIN", superAdminPrivileges);
+        Role role_admin = createRoleIfNotFound("ROLE_ADMIN", superAdminPrivileges);
         Role role_client = createRoleIfNotFound("ROLE_CLIENT", clientPrivileges);
 
 
-        User superUser = new User();
-        superUser.setEmail("super_admin@test.com");
-        superUser.setUserId(UUID.randomUUID().toString());
-        superUser.setEncryptedPassword(bCryptPasswordEncoder.encode("superAdmin"));
-        superUser.setRole(role_super_admin);
-        superUser.setEnabled(true);
-        superUser.setActive(true);
-        usersRepository.save(superUser);
+//        User superUser = new User();
+//        superUser.setAppUserEmail("super_admin@test.com");
+//        superUser.setAppUserId(UUID.randomUUID().toString());
+//        Set r1 = new HashSet();
+//        r1.add(role_super_admin);
+//        superUser.setRole(r1);
+//
+//        superUser.setActive(true);
+//        usersRepository.save(superUser);
 
         User admin = new User();
-        admin.setEmail("admin@test.com");
-        admin.setUserId(UUID.randomUUID().toString());
-        admin.setEncryptedPassword(bCryptPasswordEncoder.encode("admin"));
-        admin.setRole(role_admin);
-        admin.setEnabled(true);
+        admin.setAppUserEmail("admin@test.com");
+        admin.setAppUserId(UUID.randomUUID().toString());
+        Set r2 = new HashSet();
+        r2.add(role_admin);
+        admin.setRole(r2);
         admin.setActive(true);
         usersRepository.save(admin);
 
         User client = new User();
-        client.setEmail("client@test.com");
-        client.setUserId(UUID.randomUUID().toString());
-        client.setEncryptedPassword(bCryptPasswordEncoder.encode("client"));
-        client.setRole(role_client);
-        client.setEnabled(true);
+        client.setAppUserEmail("client@test.com");
+        client.setAppUserId(UUID.randomUUID().toString());
+        Set r3 = new HashSet();
+        r3.add(role_client);
+        client.setRole(r3);
         client.setActive(true);
         usersRepository.save(client);
 
@@ -98,20 +97,20 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         approvalStageRepository.save(stage);
         approvalStageRepository.save(stage1);
 
-        Type shortCode = new Type("ShortCodes",3,5);
+        Type shortCode = new Type("ShortCodes", 3, 5);
         Type nationalNumber = new Type("NationalNumber", 10, 10);
-        Type iscp = new Type("ISCP", 5,5);
+        Type iscp = new Type("ISCP", 5, 5);
 
         Type shortcode = typeRepository.save(shortCode);
         Type national = typeRepository.save(nationalNumber);
         Type isc = typeRepository.save(iscp);
 
-        SpecificType sc1 = new SpecificType("3", shortcode, 3,3);
-        SpecificType sc2 = new SpecificType("4", shortcode,4,4);
-        SpecificType sc3 = new SpecificType("5", shortcode,5,5);
-        SpecificType nn1 = new SpecificType("Land", national,8,8);
-        SpecificType nn2 = new SpecificType("GSM", national,11,11);
-        SpecificType fiveDigitsISCP = new SpecificType("ISCP", isc,5,5);
+        SpecificType sc1 = new SpecificType("3", shortcode, 3, 3);
+        SpecificType sc2 = new SpecificType("4", shortcode, 4, 4);
+        SpecificType sc3 = new SpecificType("5", shortcode, 5, 5);
+        SpecificType nn1 = new SpecificType("Land", national, 8, 8);
+        SpecificType nn2 = new SpecificType("GSM", national, 11, 11);
+        SpecificType fiveDigitsISCP = new SpecificType("ISCP", isc, 5, 5);
 
 
         specificTypeRepository.save(sc1);

@@ -1,25 +1,12 @@
-package com.nms.entities;
+package com.nms.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
-@Entity(name = "nms_user")
-public class User implements Serializable {
+public class AuthenticationRequest implements Serializable {
 
-    private static final long serialVersionUID = -2731425678149216053L;
-
-    @Id
-    @Column(nullable = false, unique = true)
     private String appUserId;
-    @Column(nullable = false, length = 120, unique = true)
-    @Email
     private String appUserEmail;
-    @OneToOne
     private Organization organization;
     private String username;
     private String mobileNumber;
@@ -37,11 +24,6 @@ public class User implements Serializable {
     private boolean allowedToUseApi;
     private boolean emailVerified;
     private boolean phoneVerified;
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
-    private Set<Role> role;
-    @ManyToOne
-    private Department department;
 
     public String getAppUserId() {
         return appUserId;
@@ -57,22 +39,6 @@ public class User implements Serializable {
 
     public void setAppUserEmail(String appUserEmail) {
         this.appUserEmail = appUserEmail;
-    }
-
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
     }
 
     public Organization getOrganization() {

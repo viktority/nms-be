@@ -40,8 +40,8 @@ public class LicenseService {
         com.nms.entities.License byName = licenseRepository.findByName(licenseName);
         if (byName != null) {
             License map = mapper.map(byName, License.class);
-            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getUserId());
-            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getUserId());
+            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;
@@ -51,8 +51,8 @@ public class LicenseService {
         List<License> list = new ArrayList<>();
         licenseRepository.findAll().forEach(as -> {
             License map = mapper.map(as, License.class);
-            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
-            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
+            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getAppUserId());
             list.add(map);
         });
         return list;
@@ -66,8 +66,8 @@ public class LicenseService {
             com.nms.entities.License save = licenseRepository.save(bp);
 
             License map = mapper.map(save, License.class);
-            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getUserId());
-            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getUserId());
+            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;

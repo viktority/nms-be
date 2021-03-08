@@ -1,22 +1,16 @@
 package com.nms.services;
 
 
-import com.nms.entities.Department;
+import com.nms.entities.Organization;
 import com.nms.entities.Privilege;
 import com.nms.entities.Role;
 import com.nms.entities.User;
-import com.nms.models.ResponseModel;
-import com.nms.models.UserDto;
-import com.nms.repositories.DepartmentRepository;
+import com.nms.models.AuthenticationRequest;
+import com.nms.repositories.OrganizationRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
-import com.nms.utils.Utils;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,11 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -38,147 +28,119 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class UsersService implements UserDetailsService {
 
-    UsersRepository usersRepository;
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-    Environment environment;
-    RoleRepository roleRepository;
-    Utils util;
-    DepartmentRepository departmentRepository;
-
     @Autowired
-    public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                        Environment environment, RoleRepository roleRepository, Utils util, DepartmentRepository departmentRepository) {
-        this.usersRepository = usersRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.environment = environment;
-        this.roleRepository = roleRepository;
-        this.util = util;
-        this.departmentRepository = departmentRepository;
-    }
+    UsersRepository usersRepository;
+    @Autowired
+    OrganizationRepository organizationRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    RoleRepository roleRepository;
 
 
-    public User createUser(UserDto userDetails) {
-        // TODO Auto-generated method stub
-
-        if (emailExist(userDetails.getEmail())) {
-            throw new EntityExistsException("There is an account with that email adress: " + userDetails.getEmail());
-        }
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-
-        User userEntity = modelMapper.map(userDetails, User.class);
-        userEntity.setUserId(UUID.randomUUID().toString());
-        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
-        userEntity.setRole(roleRepository.findByName("ROLE_ADMIN"));
-        Optional<Department> byId = departmentRepository.findById(userDetails.getDepartmentId());
-        Department department = null;
-        if (byId.isPresent()) {
-            department = byId.get();
-        }
-        userEntity.setDepartment(department);
-        userEntity.setTokenExpired(false);
-        userEntity.setEnabled(true);
-        Long expTime = Long.parseLong(environment.getProperty("email.verification.token.expiration_time"));
-        userEntity.setToken(Utils.generateToken(userEntity.getUserId(), expTime));
-        userEntity.setActive(false);
-        return usersRepository.save(userEntity);
-
-    }
-
-    private boolean emailExist(String email) {
-        User user = usersRepository.findByEmail(email);
+    public boolean emailExist(String email) {
+        User user = usersRepository.findByAppUserEmail(email);
         return user != null;
     }
 
-
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User userEntity = usersRepository.findByEmail(username);
-
-        if (userEntity == null)
-            throw new UsernameNotFoundException(username);
-
-        return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getEncryptedPassword(), userEntity.isActive(), true, true,
-                true, getAuthorities(userEntity.getRole()));
+    public User findByEmail(String email) {
+        return usersRepository.findByAppUserEmail(email);
     }
 
-    public User getUserDetailsByEmail(String email) {
-        User userEntity = usersRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        String password = bCryptPasswordEncoder.encode("password");
+        String user = "nms";
+        //return new org.springframework.security.core.userdetails.User(username, password, new ArrayList<>());
+        User userEntity = usersRepository.findByAppUserEmail(username);
 
-        if (userEntity == null)
-            throw new UsernameNotFoundException(email);
+        if (userEntity == null) {
+            throw new UsernameNotFoundException(username);
+        }
 
-        return userEntity;
+        return new org.springframework.security.core.userdetails.User(username, password, userEntity.isActive(), true, true,
+                true, getAuthorities(userEntity.getRole()));
     }
 
     public User getUserByUserId(String userId) {
 
-        User userEntity = usersRepository.findByUserId(userId);
+        User userEntity = usersRepository.findByAppUserId(userId);
         if (userEntity == null)
             return null;
 
         return userEntity;
     }
 
-
     public List<User> getUsers() {
-
         return (List<User>) usersRepository.findAll();
     }
 
-
-    public Role getUserRole(String email) {
-
-        User userEntity = usersRepository.findByEmail(email);
-        if (userEntity == null)
-            throw new UsernameNotFoundException("User not found");
-
-        return userEntity.getRole();
-    }
-
-
-    public ResponseEntity<ResponseModel> activateProfile(String token) {
-        User profile = usersRepository.findByToken(token);
-        ResponseModel rm = new ResponseModel();
-        rm.setStatusId("Account Activation");
-        rm.setDescription("Account doesn't exist!");
-        if (profile != null) {
-
-            boolean hasTokenExpired = Utils.hasTokenExpired(token);
-            if (!hasTokenExpired) {
-
-                profile.setActive(true);
-                profile.setToken(null);
-                usersRepository.save(profile);
-                rm.setStatusId("Activated");
-                return ResponseEntity.status(HttpStatus.OK).body(rm);
-
-            } else {
-                Long expTime = Long.parseLong(environment.getProperty("email.verification.token.expiration_time"));
-                String newToken = Utils.generateToken(profile.getUserId(), expTime);
-                profile.setToken(newToken);
-                usersRepository.save(profile);
-                return activateProfile(newToken);
-            }
-
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(rm);
-        }
-    }
-
-
-    public Collection<? extends GrantedAuthority> getAuthorities(Role roles) {
+    public Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
 
         return getGrantedAuthorities(getPrivileges(roles));
     }
 
-    private List<String> getPrivileges(Role roles) {
-        return roles.getPrivileges().stream().map(Privilege::getName).collect(Collectors.toList());
+    private Set<String> getPrivileges(Set<Role> roles) {
+        Set<String> collect = roles.stream().flatMap(r -> r.getPrivileges().stream().map(Privilege::getName)).collect(Collectors.toSet());
+        roles.forEach(r -> collect.add(r.getName()));
+
+//        List<String> priveleges = roles.getPrivileges().stream().map(Privilege::getName).collect(Collectors.toList());
+//        priveleges.add(roles.getName());
+        return collect;
+        //return roles.getPrivileges().stream().map(Privilege::getName).collect(Collectors.toList());
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+    private List<GrantedAuthority> getGrantedAuthorities(Set<String> privileges) {
         return privileges.stream().map(SimpleGrantedAuthority::new)
                 .collect(toList());
     }
 
+    public User insertUser(AuthenticationRequest request) {
+        ModelMapper modelMapper = new ModelMapper();
+        User user = null;
+        boolean exist = emailExist(request.getAppUserEmail());
+        if (exist) {
+            user = findByEmail(request.getAppUserEmail());
+        } else {
+            //create new user with information
+            Organization organization = null;
+            String rcNumber = request.getOrganization().getRcNumber();
+            Optional<Organization> byRcNumber = organizationRepository.findByRcNumber(rcNumber);
+            if (byRcNumber.isPresent()) {
+                organization = byRcNumber.get();
+            } else {
+                Organization map = modelMapper.map(request.getOrganization(), Organization.class);
+                map.setOrganizationId(UUID.randomUUID().toString());
+                organization = organizationRepository.save(map);
+            }
 
+            User map = modelMapper.map(request, User.class);
+            map.setOrganization(organization);
+
+            Role role_user = roleRepository.findByName("ROLE_CLIENT");
+            Set<Role> users = new HashSet<>();
+            users.add(role_user);
+            map.setRole(users);
+            user = usersRepository.save(map);
+        }
+        return user;
+    }
+
+    public User AssignRoleToUser(String userId, Long roleId) {
+        User byAppUserId = usersRepository.findByAppUserId(userId);
+        Optional<Role> byId = roleRepository.findById(roleId);
+        if (byAppUserId != null) {
+            if (byId.isPresent()) {
+                Role role1 = byId.get();
+                Set<Role> role = byAppUserId.getRole();
+                boolean b = role.stream().anyMatch(role2 -> role2.getName().equals(role1.getName()));
+                if (b) {
+                    return byAppUserId;
+                }
+                role.add(role1);
+                byAppUserId.setRole(role);
+                return usersRepository.save(byAppUserId);
+            }
+        }
+        return null;
+    }
 }

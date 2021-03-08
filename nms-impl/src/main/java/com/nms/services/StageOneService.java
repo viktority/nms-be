@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StageOneService {
@@ -83,7 +82,7 @@ public class StageOneService {
                 map.setLicense(null);
             }
         }
-        map.setUserId(usersRepository.findByUserId(body.getUserId()));
+        map.setUserId(usersRepository.findByAppUserId(body.getUserId()));
         com.nms.entities.StageOne save = repository.save(map);
         return save != null ? mapper.map(save, StageOne.class) : null;
     }
@@ -104,7 +103,7 @@ public class StageOneService {
         map.setPreviousLicense(a.getPreviousLicense());
         User u = a.getUserId();
         if (u != null)
-            map.setUserId(u.getUserId());
+            map.setUserId(u.getAppUserId());
         return map;
     }
 }

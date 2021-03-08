@@ -45,7 +45,7 @@ public class EmailService {
             com.nms.entities.Email map = mapper.map(body, com.nms.entities.Email.class);
             map.setSentAt(LocalDateTime.now());
             map.setReceiverEmail(body.getEmailAddress());
-            map.setSenderEmail(user.getUser() == null ? null : user.getUser().getEmail());
+            map.setSenderEmail(user.getUser() == null ? null : user.getUser().getAppUserEmail());
             emailRepository.save(map);
         }
         return b;
@@ -62,7 +62,7 @@ public class EmailService {
             MimeMessage message = new MimeMessage(session);
             message.setText(feedback.getBody());
             message.setSubject(feedback.getSubject());
-            String name = user.getUser() == null ? "Number Management System" : user.getUser().getEmail();
+            String name = user.getUser() == null ? "Number Management System" : user.getUser().getAppUserEmail();
             message.setFrom(new InternetAddress(emailConfig.getUsername(), name));
             message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(feedback.getEmailAddress()));
             message.saveChanges();

@@ -29,8 +29,15 @@ public class Config {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
+//                .globalOperationParameters(Arrays.asList(new ParameterBuilder()
+//                        .name("Authorization")
+//                        .description("Description of header")
+//                        .modelRef(new ModelRef("string"))
+//                        .parameterType("header")
+//                        .required(true).build()))
                 // .protocols(new HashSet<>(Arrays.asList("HTTPs", "HTTP")))
-                .apiInfo(apiInfo).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build();
+                .apiInfo(apiInfo).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any())
+               .build();
     }
 
     @Bean

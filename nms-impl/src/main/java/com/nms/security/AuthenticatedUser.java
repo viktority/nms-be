@@ -18,15 +18,14 @@ public class AuthenticatedUser {
     }
 
     public String getUserId() {
-        return this.getUser() == null ? null : getUser().getUserId();
+        return this.getUser() == null ? null : getUser().getAppUserId();
     }
 
     public User getUser() {
-        return this.getName() != null ? usersRepository.findByEmail(this.getName()) : null;
+        return this.getName() != null ? usersRepository.findByAppUserEmail(this.getName()) : null;
     }
 
     Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
-
     }
 }

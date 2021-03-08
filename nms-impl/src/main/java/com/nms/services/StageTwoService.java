@@ -58,7 +58,7 @@ public class StageTwoService {
         map.setDevice(body.getDevice());
         map.setFrequencyCoverage(body.getFrequencyCoverage());
         map.setNumberBlock(body.getNumberBlock());
-        map.setUserId(usersRepository.findByUserId(body.getUserId()));
+        map.setUserId(usersRepository.findByAppUserId(body.getUserId()));
         com.nms.entities.StageTwo save = repository.save(map);
         return save != null ? mapper.map(save, StageTwo.class) : null;
     }
@@ -75,7 +75,7 @@ public class StageTwoService {
         map.setNumberBlock(a.getNumberBlock());
         User u = a.getUserId();
         if (u != null)
-            map.setUserId(u.getUserId());
+            map.setUserId(u.getAppUserId());
         return map;
     }
 }

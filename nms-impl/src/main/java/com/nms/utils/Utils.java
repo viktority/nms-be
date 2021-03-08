@@ -4,8 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -15,8 +13,8 @@ import java.util.Date;
 @Service
 public class Utils {
 
-    @Autowired
-    Environment env;
+    //@Autowired
+    //Environment env;
 
     private static final Key secret = MacProvider.generateKey(SignatureAlgorithm.HS256);
     private static final byte[] secretBytes = secret.getEncoded();
@@ -49,4 +47,6 @@ public class Utils {
             return null;
         }
     }
+
+
 }

@@ -109,8 +109,8 @@ public class InvoiceService {
             map.setApplicationId(invoice.getApplication().getApplicationId());
         if (invoice.getFee() != null)
             map.setFeeId(invoice.getFee().getId().intValue());
-        map.setCreatedBy(invoice.getCreatedBy() == null ? null : invoice.getCreatedBy().getUserId());
-        map.setUpdatedBy(invoice.getUpdatedBy() == null ? null : invoice.getUpdatedBy().getUserId());
+        map.setCreatedBy(invoice.getCreatedBy() == null ? null : invoice.getCreatedBy().getAppUserId());
+        map.setUpdatedBy(invoice.getUpdatedBy() == null ? null : invoice.getUpdatedBy().getAppUserId());
         return map;
     }
 }

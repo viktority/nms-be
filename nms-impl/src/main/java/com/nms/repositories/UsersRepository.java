@@ -9,11 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UsersRepository extends CrudRepository<User, String> {
-    User findByEmail(String email);
-
-    User findByUserId(String userId);
-
-    User findByToken(String token);
-
+    User findByAppUserEmail(String email);
+    User findByAppUserId(String userId);
     List<User> findByRoleId(Long roleId);
 }

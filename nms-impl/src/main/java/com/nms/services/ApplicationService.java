@@ -128,8 +128,8 @@ public class ApplicationService {
         map.setStageOne(mapper.map(application.getStageOne(), StageOne.class));
         map.setStageThree(mapper.map(application.getStageThree(), StageThree.class));
         map.setStageTwo(mapper.map(application.getStageTwo(), StageTwo.class));
-        map.setCreatedBy(application.getCreatedBy() == null ? null : application.getCreatedBy().getUserId());
-        map.setUpdatedBy(application.getUpdatedBy() == null ? null : application.getUpdatedBy().getUserId());
+        map.setCreatedBy(application.getCreatedBy() == null ? null : application.getCreatedBy().getAppUserId());
+        map.setUpdatedBy(application.getUpdatedBy() == null ? null : application.getUpdatedBy().getAppUserId());
         return map;
     }
 }

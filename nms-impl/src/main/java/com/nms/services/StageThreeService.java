@@ -27,7 +27,7 @@ public class StageThreeService {
     public StageThree addStageThree(StageThree body) {
         com.nms.entities.StageThree map = mapper.map(body, com.nms.entities.StageThree.class);
         map.setDocumentCompleted(false);
-        map.setUserId(usersRepository.findByUserId(body.getUserId()));
+        map.setUserId(usersRepository.findByAppUserId(body.getUserId()));
         com.nms.entities.StageThree save = repository.save(map);
         return save != null?mapper.map(save,StageThree.class):null;
     }
@@ -71,7 +71,7 @@ public class StageThreeService {
         StageThree map = mapper.map(a, StageThree.class);
         User u = a.getUserId();
         if (u != null)
-            map.setUserId(u.getUserId());
+            map.setUserId(u.getAppUserId());
         return map;
     }
 }

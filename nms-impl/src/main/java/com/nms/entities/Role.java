@@ -21,10 +21,8 @@ public class Role implements Serializable {
     @OneToOne(cascade = CascadeType.DETACH)
     private User updatedBy;
 
-//    @ManyToMany(mappedBy = "roles")
-//    private Collection<Users> users;
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
 
@@ -51,15 +49,6 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public Collection<Users> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Collection<Users> users) {
-//        this.users = users;
-//    }
-
 
     public User getCreatedBy() {
         return createdBy;

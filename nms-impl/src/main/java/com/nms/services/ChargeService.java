@@ -45,8 +45,8 @@ public class ChargeService {
             com.nms.entities.Charge save = chargeRepository.save(bp);
 
             Charge map = mapper.map(save, Charge.class);
-            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getUserId());
-            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getUserId());
+            map.setCreatedBy(bp.getCreatedBy() == null ? null : bp.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(bp.getUpdatedBy() == null ? null : bp.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;
@@ -56,8 +56,8 @@ public class ChargeService {
         List<Charge> list = new ArrayList<>();
         chargeRepository.findAll().forEach(as -> {
             Charge map = mapper.map(as, Charge.class);
-            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getUserId());
-            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getUserId());
+            map.setCreatedBy(as.getCreatedBy() == null ? null : as.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(as.getUpdatedBy() == null ? null : as.getUpdatedBy().getAppUserId());
             list.add(map);
         });
         return list;
@@ -67,8 +67,8 @@ public class ChargeService {
         com.nms.entities.Charge byName = chargeRepository.findByName(chargeName);
         if (byName != null) {
             Charge map = mapper.map(byName, Charge.class);
-            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getUserId());
-            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getUserId());
+            map.setCreatedBy(byName.getCreatedBy() == null ? null : byName.getCreatedBy().getAppUserId());
+            map.setUpdatedBy(byName.getUpdatedBy() == null ? null : byName.getUpdatedBy().getAppUserId());
             return map;
         }
         return null;
