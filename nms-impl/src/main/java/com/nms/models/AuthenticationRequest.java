@@ -25,6 +25,7 @@ public class AuthenticationRequest implements Serializable {
     private boolean emailVerified;
     private boolean phoneVerified;
 
+    private String token;
     public String getAppUserId() {
         return appUserId;
     }
@@ -175,5 +176,13 @@ public class AuthenticationRequest implements Serializable {
 
     public void setPhoneVerified(boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

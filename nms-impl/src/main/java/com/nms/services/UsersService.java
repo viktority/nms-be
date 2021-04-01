@@ -5,7 +5,7 @@ import com.nms.entities.Organization;
 import com.nms.entities.Privilege;
 import com.nms.entities.Role;
 import com.nms.entities.User;
-import com.nms.models.AuthenticationRequest;
+import com.nms.models.ncc.NccResponseModel;
 import com.nms.repositories.OrganizationRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
@@ -94,7 +94,7 @@ public class UsersService implements UserDetailsService {
                 .collect(toList());
     }
 
-    public User insertUser(AuthenticationRequest request) {
+    public User insertUser(NccResponseModel request) {
         ModelMapper modelMapper = new ModelMapper();
         User user = null;
         boolean exist = emailExist(request.getAppUserEmail());
@@ -103,12 +103,14 @@ public class UsersService implements UserDetailsService {
         } else {
             //create new user with information
             Organization organization = null;
-            String rcNumber = request.getOrganization().getRcNumber();
+            int num = Integer.parseInt(generateRandomNumber(1));
+            String string = generateRandomNumber(num);
+            String rcNumber = request.getOrganizationId().getOrganizationId() + string;
             Optional<Organization> byRcNumber = organizationRepository.findByRcNumber(rcNumber);
             if (byRcNumber.isPresent()) {
                 organization = byRcNumber.get();
             } else {
-                Organization map = modelMapper.map(request.getOrganization(), Organization.class);
+                Organization map = modelMapper.map(request.getOrganizationId(), Organization.class);
                 map.setOrganizationId(UUID.randomUUID().toString());
                 organization = organizationRepository.save(map);
             }
@@ -142,5 +144,12 @@ public class UsersService implements UserDetailsService {
             }
         }
         return null;
+    }
+
+    private String generateRandomNumber(int num) {
+        String format = "%0" + num + "d";
+        Random random = new Random();
+        int number = random.nextInt(999999);
+        return String.format(format, number);
     }
 }

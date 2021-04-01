@@ -21,11 +21,11 @@ spring:
 
     #MySQL
   datasource:
-   # url: jdbc:mysql://localhost:3306/nms?serverTimezone=UTC&createDatabaseIfNotExist=true
+ #   url: jdbc:mysql://localhost:3306/nms?serverTimezone=UTC&createDatabaseIfNotExist=true
     url: jdbc:mysql://nms.cvhqs5nfkn0p.us-east-1.rds.amazonaws.com:3306/nms?serverTimezone=UTC&createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
-    #username: root
+#   username: root
     password: password
   jpa:
     demographics-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -93,3 +93,11 @@ springfox:
     open-api:
       v2:
         path: /api-docs
+
+
+nms:
+  server:
+    url: http://apps.showcase.com.ng/api-server/identity/validate/?token=
+
+  api:
+    key: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBsaWNhdGlvbklkIjoibnVtYmVyaW5nIiwiZXhwIjozNjg1MjgyNjIxLCJpYXQiOjE1Mzc3OTg5NzQsInVzZXJuYW1lIjoibnVtYmVyaW5nX2FkbWluIn0.EeMzWArhIMw0PnRjWX4oWlT985Id3DXHJS8mZzAqmz0
