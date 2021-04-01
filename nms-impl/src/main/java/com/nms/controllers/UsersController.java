@@ -94,7 +94,7 @@ public class UsersController {
         headers.set("Authorization", apiKey);
         headers.setAccept(Collections.singletonList(MediaType.ALL));
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-        clientHttpRequestFactory.setConnectTimeout(10000);
+        clientHttpRequestFactory.setConnectTimeout(20000);
 
         HttpEntity<Object> serverRequest = new HttpEntity<>(headers);
 
