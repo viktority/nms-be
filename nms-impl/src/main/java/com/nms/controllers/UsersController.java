@@ -3,11 +3,11 @@ package com.nms.controllers;
 import com.nms.entities.User;
 import com.nms.models.AuthenticationResponse;
 import com.nms.models.LoginRequestModel;
-import com.nms.models.ncc.NccResponseModel;
 import com.nms.security.AuthenticatedUser;
 import com.nms.services.UsersService;
 import com.nms.utils.JwtUtil;
 import io.swagger.annotations.*;
+import ncc.NccResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -123,7 +123,7 @@ public class UsersController {
         final UserDetails userDetails = usersService.loadUserByUsername(user.getAppUserEmail());
         String s = util.generateToken(userDetails);
         authenticationRequest.setToken(s);
-         AuthenticationResponse response = new AuthenticationResponse(s);
+        AuthenticationResponse response = new AuthenticationResponse(s);
 
         return ResponseEntity.ok(authenticationRequest);
     }

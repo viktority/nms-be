@@ -1,16 +1,16 @@
-package com.nms.models.ncc;
+package ncc;
 
 import java.util.Date;
 
-public class RoleId{
+public class RoleId {
     private String roleId;
     private String roleName;
     private String roleDescription;
     private Date dateCreated;
-    private Date dateModified;
-    private String modifiedBy;
+    private Object dateModified;
+    private Object modifiedBy;
     private String createdBy;
-    private OrganizationId organizationId;
+    private Object organizationId;
 
     public String getRoleId() {
         return roleId;
@@ -44,19 +44,19 @@ public class RoleId{
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateModified() {
+    public Object getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(Date dateModified) {
+    public void setDateModified(Object dateModified) {
         this.dateModified = dateModified;
     }
 
-    public String getModifiedBy() {
+    public Object getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(String modifiedBy) {
+    public void setModifiedBy(Object modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
@@ -68,11 +68,11 @@ public class RoleId{
         this.createdBy = createdBy;
     }
 
-    public OrganizationId getOrganizationId() {
+    public Object getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(OrganizationId organizationId) {
+    public void setOrganizationId(Object organizationId) {
         this.organizationId = organizationId;
     }
 }

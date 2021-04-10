@@ -1,11 +1,19 @@
-package com.nms.models.ncc;
+package com.nms.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
-public class Application{
+@Entity
+public class NccApplication {
+
+    @Id
+    @GeneratedValue
+    private long id;
     private boolean hideFromDashboard;
     private int ordering;
-    private Object paymentCallBackUrl;
+    private String paymentCallBackUrl;
     private String logoPath;
     private String applicationId;
     private String applicationName;
@@ -34,11 +42,11 @@ public class Application{
         this.ordering = ordering;
     }
 
-    public Object getPaymentCallBackUrl() {
+    public String getPaymentCallBackUrl() {
         return paymentCallBackUrl;
     }
 
-    public void setPaymentCallBackUrl(Object paymentCallBackUrl) {
+    public void setPaymentCallBackUrl(String paymentCallBackUrl) {
         this.paymentCallBackUrl = paymentCallBackUrl;
     }
 
@@ -129,5 +137,12 @@ public class Application{
     public void setActionAdditionalDetails(String actionAdditionalDetails) {
         this.actionAdditionalDetails = actionAdditionalDetails;
     }
-}
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+}

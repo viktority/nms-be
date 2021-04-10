@@ -1,8 +1,14 @@
-package com.nms.models.ncc;
+package com.nms.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
-
-public class OrganizationTypeId{
+@Entity
+public class OrganizationTypeId {
+    @Id
+    @GeneratedValue
+    private long id;
     private String organizationTypeId;
     private String organizationTypeName;
     private String organizationTypeDescription;
@@ -47,5 +53,13 @@ public class OrganizationTypeId{
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

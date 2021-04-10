@@ -1,23 +1,21 @@
 package com.nms.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.OneToOne;
 import java.util.Date;
 
-@Entity(name = "nms_organization")
-public class Organization implements Serializable {
-
-    private static final long serialVersionUID = -2731425678149216053L;
-
+@Entity
+public class JpaContractor {
     @Id
-    private String organizationId;
+    @GeneratedValue
+    private String contractorId;
     private boolean existingContractor;
     private int unreadCount;
     private String verificationStatus;
-    @Column(length = 512)
-    private String contractorId;
+    private String currentMonitoringStatus;
+    private boolean currentUserWatchingComplaint;
     private String tradeName;
     private String rcNumber;
     private String tinNumber;
@@ -38,17 +36,32 @@ public class Organization implements Serializable {
     private String companyContactEmail;
     private boolean barred;
     private String oldContractorUsername;
-    private int certificateNumber;
+    private String certificateNumber;
     private boolean companyEmailVerified;
     private String registrationNumber;
     private String thirdPartyBusinessNumber;
+    private Date dateModified;
+    private String modifiedBy;
+    private Date dateCreated;
+    private String createdBy;
+    @OneToOne
+    private CountryOfRegistration countryOfRegistration;
+    @OneToOne
+    private ActualCompanyType actualCompanyType;
+    private String thirdPartyBusinessName;
+    @OneToOne
+    private OwnershipType ownershipType;
+    @OneToOne
+    private CompanyType companyType;
+    @OneToOne
+    private HeadOfficeAddressState headOfficeAddressState;
 
-    public String getOrganizationId() {
-        return organizationId;
+    public String getContractorId() {
+        return contractorId;
     }
 
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public void setContractorId(String contractorId) {
+        this.contractorId = contractorId;
     }
 
     public boolean isExistingContractor() {
@@ -75,12 +88,20 @@ public class Organization implements Serializable {
         this.verificationStatus = verificationStatus;
     }
 
-    public String getContractorId() {
-        return contractorId;
+    public String getCurrentMonitoringStatus() {
+        return currentMonitoringStatus;
     }
 
-    public void setContractorId(String contractorId) {
-        this.contractorId = contractorId;
+    public void setCurrentMonitoringStatus(String currentMonitoringStatus) {
+        this.currentMonitoringStatus = currentMonitoringStatus;
+    }
+
+    public boolean isCurrentUserWatchingComplaint() {
+        return currentUserWatchingComplaint;
+    }
+
+    public void setCurrentUserWatchingComplaint(boolean currentUserWatchingComplaint) {
+        this.currentUserWatchingComplaint = currentUserWatchingComplaint;
     }
 
     public String getTradeName() {
@@ -243,11 +264,11 @@ public class Organization implements Serializable {
         this.oldContractorUsername = oldContractorUsername;
     }
 
-    public int getCertificateNumber() {
+    public String getCertificateNumber() {
         return certificateNumber;
     }
 
-    public void setCertificateNumber(int certificateNumber) {
+    public void setCertificateNumber(String certificateNumber) {
         this.certificateNumber = certificateNumber;
     }
 
@@ -273,5 +294,85 @@ public class Organization implements Serializable {
 
     public void setThirdPartyBusinessNumber(String thirdPartyBusinessNumber) {
         this.thirdPartyBusinessNumber = thirdPartyBusinessNumber;
+    }
+
+    public Date getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(Date dateModified) {
+        this.dateModified = dateModified;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public CountryOfRegistration getCountryOfRegistration() {
+        return countryOfRegistration;
+    }
+
+    public void setCountryOfRegistration(CountryOfRegistration countryOfRegistration) {
+        this.countryOfRegistration = countryOfRegistration;
+    }
+
+    public ActualCompanyType getActualCompanyType() {
+        return actualCompanyType;
+    }
+
+    public void setActualCompanyType(ActualCompanyType actualCompanyType) {
+        this.actualCompanyType = actualCompanyType;
+    }
+
+    public String getThirdPartyBusinessName() {
+        return thirdPartyBusinessName;
+    }
+
+    public void setThirdPartyBusinessName(String thirdPartyBusinessName) {
+        this.thirdPartyBusinessName = thirdPartyBusinessName;
+    }
+
+    public OwnershipType getOwnershipType() {
+        return ownershipType;
+    }
+
+    public void setOwnershipType(OwnershipType ownershipType) {
+        this.ownershipType = ownershipType;
+    }
+
+    public CompanyType getCompanyType() {
+        return companyType;
+    }
+
+    public void setCompanyType(CompanyType companyType) {
+        this.companyType = companyType;
+    }
+
+    public HeadOfficeAddressState getHeadOfficeAddressState() {
+        return headOfficeAddressState;
+    }
+
+    public void setHeadOfficeAddressState(HeadOfficeAddressState headOfficeAddressState) {
+        this.headOfficeAddressState = headOfficeAddressState;
     }
 }

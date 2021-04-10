@@ -1,17 +1,17 @@
-package com.nms.models.ncc;
+package ncc;
 
 import java.util.Date;
 
-public class JpaCollaborator{
+public class JpaCollaborator {
     private String collaboratorId;
     private boolean isGeneric;
-    private String address;
+    private Object address;
     private int ordering;
-    private Date dateModified;
-    private String modifiedBy;
+    private Object dateModified;
+    private Object modifiedBy;
     private Date dateCreated;
     private String createdBy;
-    private String sector;
+    private Object sector;
 
     public String getCollaboratorId() {
         return collaboratorId;
@@ -29,11 +29,11 @@ public class JpaCollaborator{
         isGeneric = generic;
     }
 
-    public String getAddress() {
+    public Object getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Object address) {
         this.address = address;
     }
 
@@ -45,19 +45,19 @@ public class JpaCollaborator{
         this.ordering = ordering;
     }
 
-    public Date getDateModified() {
+    public Object getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(Date dateModified) {
+    public void setDateModified(Object dateModified) {
         this.dateModified = dateModified;
     }
 
-    public String getModifiedBy() {
+    public Object getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(String modifiedBy) {
+    public void setModifiedBy(Object modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
@@ -77,11 +77,11 @@ public class JpaCollaborator{
         this.createdBy = createdBy;
     }
 
-    public String getSector() {
+    public Object getSector() {
         return sector;
     }
 
-    public void setSector(String sector) {
+    public void setSector(Object sector) {
         this.sector = sector;
     }
 }

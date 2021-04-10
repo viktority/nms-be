@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "nms_user")
@@ -42,6 +43,15 @@ public class User implements Serializable {
     private Set<Role> role;
     @ManyToOne
     private Department department;
+    @OneToMany
+    @JsonIgnore
+    private List<NccApplication> applications;
+    private String tour;
+    @OneToOne
+    private OrganizationId organizationId;
+
+    @OneToOne
+    private RoleId roleId;
 
     public String getAppUserId() {
         return appUserId;
@@ -210,4 +220,6 @@ public class User implements Serializable {
     public void setPhoneVerified(boolean phoneVerified) {
         this.phoneVerified = phoneVerified;
     }
+
+
 }

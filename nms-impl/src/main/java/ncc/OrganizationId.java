@@ -1,10 +1,10 @@
-package com.nms.models.ncc;
+package ncc;
 
 import java.util.Date;
 
-public class OrganizationId{
+public class OrganizationId {
     private JpaCollaborator jpaCollaborator;
-    private Object jpaContractor;
+    private JpaContractor jpaContractor;
     private String organizationId;
     private Date dateCreated;
     private String createdBy;
@@ -17,6 +17,8 @@ public class OrganizationId{
     private String modifiedBy;
     private boolean allowedToUseApi;
     private OrganizationTypeId organizationTypeId;
+    private String organizationTypeName;
+    private String organizationTypeDescription;
 
     public JpaCollaborator getJpaCollaborator() {
         return jpaCollaborator;
@@ -26,11 +28,11 @@ public class OrganizationId{
         this.jpaCollaborator = jpaCollaborator;
     }
 
-    public Object getJpaContractor() {
+    public JpaContractor getJpaContractor() {
         return jpaContractor;
     }
 
-    public void setJpaContractor(Object jpaContractor) {
+    public void setJpaContractor(JpaContractor jpaContractor) {
         this.jpaContractor = jpaContractor;
     }
 
@@ -128,5 +130,21 @@ public class OrganizationId{
 
     public void setOrganizationTypeId(OrganizationTypeId organizationTypeId) {
         this.organizationTypeId = organizationTypeId;
+    }
+
+    public String getOrganizationTypeName() {
+        return organizationTypeName;
+    }
+
+    public void setOrganizationTypeName(String organizationTypeName) {
+        this.organizationTypeName = organizationTypeName;
+    }
+
+    public String getOrganizationTypeDescription() {
+        return organizationTypeDescription;
+    }
+
+    public void setOrganizationTypeDescription(String organizationTypeDescription) {
+        this.organizationTypeDescription = organizationTypeDescription;
     }
 }

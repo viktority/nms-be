@@ -5,11 +5,12 @@ import com.nms.entities.Organization;
 import com.nms.entities.Privilege;
 import com.nms.entities.Role;
 import com.nms.entities.User;
-import com.nms.models.ncc.NccResponseModel;
 import com.nms.repositories.OrganizationRepository;
 import com.nms.repositories.RoleRepository;
 import com.nms.repositories.UsersRepository;
+import ncc.NccResponseModel;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -96,6 +97,7 @@ public class UsersService implements UserDetailsService {
 
     public User insertUser(NccResponseModel request) {
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         User user = null;
         boolean exist = emailExist(request.getAppUserEmail());
         if (exist) {
@@ -103,15 +105,20 @@ public class UsersService implements UserDetailsService {
         } else {
             //create new user with information
             Organization organization = null;
-            int num = Integer.parseInt(generateRandomNumber(1));
-            String string = generateRandomNumber(num);
-            String rcNumber = request.getOrganizationId().getOrganizationId() + string;
+            String rcNumber;
+            try {
+                rcNumber = request.getOrganizationId().getJpaContractor().getRcNumber();
+            } catch (NullPointerException ex) {
+                rcNumber = "dds";
+            }
+
             Optional<Organization> byRcNumber = organizationRepository.findByRcNumber(rcNumber);
             if (byRcNumber.isPresent()) {
                 organization = byRcNumber.get();
             } else {
                 Organization map = modelMapper.map(request.getOrganizationId(), Organization.class);
                 map.setOrganizationId(UUID.randomUUID().toString());
+                // System.err.println(map.get());
                 organization = organizationRepository.save(map);
             }
 

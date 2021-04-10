@@ -1,7 +1,8 @@
-package com.nms.models.ncc;
+package ncc;
 
 import java.util.Date;
 import java.util.List;
+
 
 public class NccResponseModel {
     private List<Application> applications;
