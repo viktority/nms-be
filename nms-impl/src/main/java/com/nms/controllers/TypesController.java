@@ -45,7 +45,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<List<Type>> getTypes() {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -54,7 +53,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<List<SpecificType>> getSpecificTypesByTypeId(Integer typeId) {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -64,7 +62,6 @@ public class TypesController implements TypesApi {
 
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<List<SpecificType>> getAllSpecificTypes() {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -73,7 +70,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Type> addType(@Valid NumberTypeDto body) {
         String accept = request.getHeader("Accept");
         Type created = typeService.addType(body);
@@ -82,7 +78,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<ResponseModel> deleteTypeById(Integer typeId) {
         String accept = request.getHeader("Accept");
         boolean deleted = typeService.deleteTypeById(typeId);
@@ -91,7 +86,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<Type> getTypeById(Integer typeId) {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -101,7 +95,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<Type> updateTypeById(Integer typeId, @Valid NumberTypeDto body) {
         String accept = request.getHeader("Accept");
         //    if (accept != null && accept.contains("application/json")) {
@@ -111,7 +104,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<SpecificType> addSpecificType(Integer typeId, @Valid SpecificType body) {
         String accept = request.getHeader("Accept");
         SpecificType created = specificTypeService.addSpecificType(typeId, body);
@@ -120,7 +112,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<ResponseModel> deleteSpecificTypeById(Integer specificTypeId) {
         String accept = request.getHeader("Accept");
         boolean deleted = specificTypeService.deleteSpecificTypeById(specificTypeId);
@@ -129,7 +120,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<SpecificType> getSpecificTypeById(Integer specificTypeId) {
         String accept = request.getHeader("Accept");
         //  if (accept != null && accept.contains("application/json")) {
@@ -139,7 +129,6 @@ public class TypesController implements TypesApi {
     }
 
     @Override
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<SpecificType> updateSpecificTypeById(Integer specificTypeId, @Valid SpecificType body) {
         String accept = request.getHeader("Accept");
         //    if (accept != null && accept.contains("application/json")) {

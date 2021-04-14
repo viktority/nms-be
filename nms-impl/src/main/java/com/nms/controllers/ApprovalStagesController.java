@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-12-06T11:07:16.529Z[GMT]")
 @RestController
 public class ApprovalStagesController implements ApprovalStageApi {

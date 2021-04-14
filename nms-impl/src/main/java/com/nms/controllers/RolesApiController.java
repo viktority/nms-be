@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-11-18T15:25:03.231Z[GMT]")
 @RestController
 public class RolesApiController implements RolesApi {

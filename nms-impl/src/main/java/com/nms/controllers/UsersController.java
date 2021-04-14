@@ -53,7 +53,6 @@ public class UsersController {
 
     @GetMapping("/status/check")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
-    @Secured({"ROLE_ADMIN"})
     public String status() {
         return "Working on port " + env.getProperty("local.server.port") + ", with token = "
                 + env.getProperty("token.secret") + authenticatedUser.getName() + " \n" + authenticatedUser.getUser().getAppUserEmail();
@@ -63,7 +62,6 @@ public class UsersController {
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(value = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     // @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    @Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
     public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
 
         User userDto = usersService.getUserByUserId(userId);
@@ -74,7 +72,6 @@ public class UsersController {
     @ApiOperation(value = "get all activity", notes = "")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<List<User>> getAllUser() {
 
         List<User> userDto = usersService.getUsers();
@@ -131,7 +128,6 @@ public class UsersController {
     @ApiOperation(value = "get all activity", notes = "")
     @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "token", paramType = "header")})
     @PostMapping("/assignroletouser")
-    @Secured({"ROLE_ADMIN"})
     public ResponseEntity<User> AssignRoleToUser(String userId, Long roleId) {
 
         User userDto = usersService.AssignRoleToUser(userId, roleId);
