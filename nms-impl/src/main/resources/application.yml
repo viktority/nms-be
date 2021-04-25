@@ -25,12 +25,12 @@ spring:
     url: jdbc:mysql://nms.cvhqs5nfkn0p.us-east-1.rds.amazonaws.com:3306/nms?serverTimezone=UTC&createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
-   # username: root
+  #  username: root
     password: password
   jpa:
     demographics-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   flyway:

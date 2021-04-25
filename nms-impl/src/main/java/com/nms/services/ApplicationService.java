@@ -123,11 +123,11 @@ public class ApplicationService {
 
     private Application deconstructEntity(com.nms.entities.Application application) {
         Application map = mapper.map(application, Application.class);
-        map.setApprovalStage(mapper.map(application.getApprovalStage(), ApprovalStage.class));
-        map.setStageFour(mapper.map(application.getStageFour(), StageFour.class));
-        map.setStageOne(mapper.map(application.getStageOne(), StageOne.class));
-        map.setStageThree(mapper.map(application.getStageThree(), StageThree.class));
-        map.setStageTwo(mapper.map(application.getStageTwo(), StageTwo.class));
+        map.setApprovalStage(application.getApprovalStage() == null ? null : mapper.map(application.getApprovalStage(), ApprovalStage.class));
+        map.setStageFour(application.getStageFour() == null ? null : mapper.map(application.getStageFour(), StageFour.class));
+        map.setStageOne(application.getStageOne() == null ? null : mapper.map(application.getStageOne(), StageOne.class));
+        map.setStageThree(application.getStageThree() == null ? null : mapper.map(application.getStageThree(), StageThree.class));
+        map.setStageTwo(application.getStageTwo() == null ? null : mapper.map(application.getStageTwo(), StageTwo.class));
         map.setCreatedBy(application.getCreatedBy() == null ? null : application.getCreatedBy().getAppUserId());
         map.setUpdatedBy(application.getUpdatedBy() == null ? null : application.getUpdatedBy().getAppUserId());
         return map;

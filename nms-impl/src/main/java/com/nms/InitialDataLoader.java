@@ -59,7 +59,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         List<Privilege> clientPrivileges = new ArrayList<>();
         clientPrivileges.add(readPrivilege);
 
-      //  Role role_super_admin = createRoleIfNotFound("ROLE_SUPER_ADMIN", superAdminPrivileges);
+        //  Role role_super_admin = createRoleIfNotFound("ROLE_SUPER_ADMIN", superAdminPrivileges);
         Role role_admin = createRoleIfNotFound("ROLE_ADMIN", superAdminPrivileges);
         Role role_client = createRoleIfNotFound("ROLE_CLIENT", clientPrivileges);
 
@@ -81,7 +81,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         r2.add(role_admin);
         admin.setRole(r2);
         admin.setActive(true);
-        usersRepository.save(admin);
+        User byAppUserEmail = usersRepository.findByAppUserEmail("admin@test.com");
+        if (byAppUserEmail == null)
+            usersRepository.save(admin);
 
         User client = new User();
         client.setAppUserEmail("client@test.com");
@@ -90,20 +92,30 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         r3.add(role_client);
         client.setRole(r3);
         client.setActive(true);
-        usersRepository.save(client);
+        User clientss = usersRepository.findByAppUserEmail("client@test.com");
+        if (clientss == null)
+            usersRepository.save(client);
 
         ApprovalStages stage = new ApprovalStages("APPROVAL_STAGE_ONE");
         ApprovalStages stage1 = new ApprovalStages("APPROVAL_STAGE_TWO");
-        approvalStageRepository.save(stage);
-        approvalStageRepository.save(stage1);
+        Optional<ApprovalStages> a1 = approvalStageRepository.findByName("APPROVAL_STAGE_ONE");
+        Optional<ApprovalStages> a2 = approvalStageRepository.findByName("APPROVAL_STAGE_TWO");
+        if (!a1.isPresent())
+            approvalStageRepository.save(stage);
+        if (!a2.isPresent())
+            approvalStageRepository.save(stage1);
 
         Type shortCode = new Type("ShortCodes", 3, 5);
         Type nationalNumber = new Type("NationalNumber", 10, 10);
         Type iscp = new Type("ISCP", 5, 5);
 
-        Type shortcode = typeRepository.save(shortCode);
-        Type national = typeRepository.save(nationalNumber);
-        Type isc = typeRepository.save(iscp);
+        Optional<Type> t1 = typeRepository.findByType("ShortCodes");
+        Optional<Type> t2 = typeRepository.findByType("NationalNumber");
+        Optional<Type> t3 = typeRepository.findByType("ISCP");
+
+        Type shortcode = t1.orElseGet(() -> typeRepository.save(shortCode));
+        Type national = t2.orElseGet(() -> typeRepository.save(nationalNumber));
+        Type isc = t3.orElseGet(() -> typeRepository.save(iscp));
 
         SpecificType sc1 = new SpecificType("3", shortcode, 3, 3);
         SpecificType sc2 = new SpecificType("4", shortcode, 4, 4);
@@ -112,13 +124,24 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
         SpecificType nn2 = new SpecificType("GSM", national, 11, 11);
         SpecificType fiveDigitsISCP = new SpecificType("ISCP", isc, 5, 5);
 
-
-        specificTypeRepository.save(sc1);
-        specificTypeRepository.save(sc2);
-        specificTypeRepository.save(sc3);
-        specificTypeRepository.save(fiveDigitsISCP);
-        specificTypeRepository.save(nn1);
-        specificTypeRepository.save(nn2);
+        SpecificType s1 = specificTypeRepository.findBySpecificType("3");
+        SpecificType s2 = specificTypeRepository.findBySpecificType("4");
+        SpecificType s3 = specificTypeRepository.findBySpecificType("5");
+        SpecificType s4 = specificTypeRepository.findBySpecificType("Land");
+        SpecificType s5 = specificTypeRepository.findBySpecificType("GSM");
+        SpecificType s6 = specificTypeRepository.findBySpecificType("ISCP");
+        if (s1 == null)
+            specificTypeRepository.save(sc1);
+        if (s2 == null)
+            specificTypeRepository.save(sc2);
+        if (s3 == null)
+            specificTypeRepository.save(sc3);
+        if (s4 == null)
+            specificTypeRepository.save(fiveDigitsISCP);
+        if (s5 == null)
+            specificTypeRepository.save(nn1);
+        if (s6 == null)
+            specificTypeRepository.save(nn2);
 
     }
 
